@@ -1,3 +1,12 @@
+#' Get color palettes for MBC project data
+#'
+#' @param set
+#'
+#' @return A named vector of colors
+#' @export
+#'
+#' @examples
+#' get_mbcp_colors("receptor")
 get_mbcp_colors <- function(set) {
 
   receptor <- c("HR+/HER2-" = RColorBrewer::brewer.pal(6,"Set1")[3],

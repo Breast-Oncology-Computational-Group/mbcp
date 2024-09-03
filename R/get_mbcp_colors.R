@@ -1,6 +1,7 @@
 #' Get color palettes for MBC project data
 #'
-#' @param set
+#' @param set Character string specifying the color palette to return. Options are: "receptor", "pam50",
+#' "dna_alts", "mutation", "histology", "treatment", "metastasis", "expression", "germline_alts", "dna_signatures"
 #'
 #' @return A named vector of colors
 #' @export
@@ -8,7 +9,14 @@
 #' @examples
 #' get_mbcp_colors("receptor")
 get_mbcp_colors <- function(set) {
+  set_names <- c("receptor", "pam50", "dna_alts", "mutation", "histology",
+                 "treatment", "metastasis", "expression", "germline_alts", "dna_signatures")
 
+  stopifnot("set must be a character" = is.character(set))
+
+  if(!set %in% set_names) {
+    stop(paste0(set, " is not a valid palette name for MBC project"))
+  }
   receptor <- c("HR+/HER2-" = RColorBrewer::brewer.pal(6,"Set1")[3],
                 "HER2+" = RColorBrewer::brewer.pal(6,"Set1")[5],
                 "TNBC" = RColorBrewer::brewer.pal(6,"Set1")[4],

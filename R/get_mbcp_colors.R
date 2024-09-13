@@ -9,12 +9,9 @@
 #' @examples
 #' get_mbcp_colors("receptor")
 get_mbcp_colors <- function(set) {
-  set_names <- c("receptor", "pam50", "dna_alts", "mutation", "histology",
-                 "treatment", "metastasis", "expression", "germline_alts", "dna_signatures")
-
   stopifnot("set must be a character" = is.character(set))
 
-  if(!set %in% set_names) {
+  if(!set %in% pkg_env$set_names) {
     stop(paste0(set, " is not a valid palette name for MBC project"))
   }
   receptor <- c("HR+/HER2-" = RColorBrewer::brewer.pal(6,"Set1")[3],
@@ -30,12 +27,13 @@ get_mbcp_colors <- function(set) {
              "NC"= RColorBrewer::brewer.pal(8,"Dark2")[8],
              "No RNA-seq" = "#9D989E")
 
+  #### Should add LOF_and_LOH
   dna_alts <- c("DeepDEL" = "#377eb8", "AMP" = "#ff6363", "HighAMP" = "#bc0000",
                 "FocalHighAMP" = "#7f0000", "Gain_of_function" = "#d95f02",
                 "Loss_of_function" = "#0173B2", "Putative_loss_of_function" = "#17c1e9ff",
-                "Biallelic_inactivation"="darkblue", "Multi_hit"="black",
+                "Biallelic_inactivation"="#00008B", "Multi_hit"="#000000",
                 "Hotspot" = "#008000","Missense_Mutation" = "#00e000",
-                "Any Amp"="pink", "Other_Mutation"="#4dbd4d", "WT" = "#9D989E")
+                "Any Amp"="#ffc0cb", "Other_Mutation"="#4dbd4d", "WT" = "#9D989E")
 
   mutation <- c("MUT"="#FC8D62","WT"="#8DA0CB")
 
@@ -45,12 +43,12 @@ get_mbcp_colors <- function(set) {
                  "MIXED_IDLC" = RColorBrewer::brewer.pal(6,"Set1")[4],
                  "ADENOCARCINOMA" = RColorBrewer::brewer.pal(6,"Set1")[5],
                  "CARCINOMA" = RColorBrewer::brewer.pal(8,"Set1")[8],
-                 "OTHER_RARE_SUBTYPE" = "yellow",
+                 "OTHER_RARE_SUBTYPE" = "#FFFF00",
                  "N/A_BLOOD_SAMPLE" = RColorBrewer::brewer.pal(7,"Set1")[7])
 
-  treatment <- c("Primary Tx Naive" = "darkcyan", "MET Txed" = "orange")
+  treatment <- c("PRIMARY_TX_NAIVE" = "#008B88", "MET_TXED" = "#FFA500")
 
-  metastasis <- c("NO_METASTATIC_DISEASE_PRESENT" = "darkcyan", "METASTATIC_DISEASE_PRESENT" = "orange")
+  metastasis <- c("NO_METASTATIC_DISEASE_PRESENT" = "#008B88", "METASTATIC_DISEASE_PRESENT" = "#FFA500")
 
   expression <- c("Lower Decile" = "#5e3c99", "Lower Quartile" = "#b2abd2",
                        "Mid" = "#CECECE", "Upper Quartile" = "#fdb863",
@@ -75,5 +73,4 @@ get_mbcp_colors <- function(set) {
                 expression = expression,
                 germline_alts = germline_alts,
                 dna_signatures = dna_signatures))
-
 }

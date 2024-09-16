@@ -2,15 +2,22 @@ Package: mbcp
 Title: Metastatic Breast Cancer Project
 Version: 0.0.0.9000
 Author: Diana Garcia Cortes <dgarciac@broadinstitute.org>
-Description: Helper functions for analysis and figures for MBCproject
+Maintainer: Diana Garcia Cortes <dgarciac@broadinstitute.org>
+Description: Helper functions for analysis and figures for the Metastatic Breast Cancer project data.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
-    RColorBrewer
+    dplyr,
+    RColorBrewer,
+    rlang,
+    tibble
 Suggests: 
+    mockery,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Depends: 
-    R (>= 2.10)
+    R (>= 4.1.0)
+LazyData: true
+LazyDataCompression: xz

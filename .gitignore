@@ -5,5 +5,8 @@
 .DS_Store
 .quarto
 ## Will be added when we release the data
-data-raw/*
+*.csv
+*.tsv
+*.maf
+*.txt
 R/sysdata.rda

@@ -12,7 +12,8 @@ Imports:
     dplyr,
     RColorBrewer,
     rlang,
-    tibble
+    tibble,
+    tidyr
 Suggests: 
     mockery,
     testthat (>= 3.0.0)

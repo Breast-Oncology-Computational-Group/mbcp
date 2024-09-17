@@ -1,8 +1,7 @@
 library(mockery)
-library(tibble)
 
 set.seed(123)
-mocked_clinical_data <- tibble(
+mocked_clinical_data <- data.frame(
   sample_alias = sample(c("Alias1", "Alias2", "Alias3"), 100, replace = TRUE),
   sample_timepoint = sample(c("Timepoint1", "Timepoint2", "Timepoint3"), 100, replace = TRUE),
   participant_id = sample(1:100, 100),
@@ -17,4 +16,7 @@ mocked_clinical_data <- tibble(
   purity = runif(100) # Generate random numbers between 0 and 1
 )
 
+mocked_tpms <- matrix(runif(1000), nrow = 100, ncol = 10)
+rownames(mocked_tpms) <- paste0("gene", 1:100)
+colnames(mocked_tpms) <- paste0("sample", 1:10)
 

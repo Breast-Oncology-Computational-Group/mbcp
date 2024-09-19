@@ -20,15 +20,15 @@ test_that("get_mbcp_tpms returns a numeric matrix", {
 })
 
 test_that("get_mbcp_tpms throws error when samples argument is not a character vector", {
-  expect_error(get_mbcp_tpms(samples = 1))
-  expect_error(get_mbcp_tpms(samples = FALSE))
-  expect_error(get_mbcp_tpms(samples = sample(1:100, 5)))
+  expect_error(get_mbcp_tpms(samples = 1), "samples should be a character vector")
+  expect_error(get_mbcp_tpms(samples = FALSE), "samples should be a character vector")
+  expect_error(get_mbcp_tpms(samples = sample(1:100, 5)), "samples should be a character vector")
 })
 
 test_that("get_mbcp_tpms throws error when genes argument is not a character vector", {
-  expect_error(get_mbcp_tpms(genes = 1))
-  expect_error(get_mbcp_tpms(genes = FALSE))
-  expect_error(get_mbcp_tpms(genes = sample(1:100, 5)))
+  expect_error(get_mbcp_tpms(genes = 1), "genes should be a character vector")
+  expect_error(get_mbcp_tpms(genes = FALSE), "genes should be a character vector")
+  expect_error(get_mbcp_tpms(genes = sample(1:100, 5)), "genes should be a character vector")
 })
 
 test_that("get_mbcp_tpms throws error when samples argument includes

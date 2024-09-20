@@ -5,7 +5,7 @@
 \alias{mbcp_enrichment_scores}
 \title{MBCproject enrichment scores}
 \format{
-An object of class \code{matrix} (inherits from \code{array}) with 52 rows and 200 columns.
+An object of class \code{matrix} (inherits from \code{array}) with 229 rows and 200 columns.
 }
 \usage{
 mbcp_enrichment_scores

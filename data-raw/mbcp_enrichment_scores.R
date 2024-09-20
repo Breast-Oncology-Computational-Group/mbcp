@@ -7,12 +7,24 @@ load("data/mbcp_clinical_data.rda")
 
 cnames <- vroom("data-raw/MBCP_Hallmark_NES_UQ seed.csv", n_max = 1) %>%
   colnames()
-
 cnames[1] <- "short_timepoint"
 cnames <- gsub("NES_", "", cnames)
-
 enrichment_scores <- vroom("data-raw/MBCP_Hallmark_NES_UQ seed.csv", col_names = cnames,
                         skip = 1)
+
+cnames2 <- vroom("data-raw/MBCP_c2_breast_NES_UQ seed.csv", n_max = 1) %>%
+  colnames()
+cnames2[1] <- "short_timepoint"
+cnames2 <- gsub("NES_", "", cnames2)
+enrichment_scores2 <- vroom("data-raw/MBCP_c2_breast_NES_UQ seed.csv", col_names = cnames2,
+                           skip = 1)
+
+
+## removing HER2MUTvsGFP_3_UP and RTK_ACT_UP cause they're repeated
+enrichment_scores <- enrichment_scores %>%
+  select(-HER2MUTvsGFP_3_UP, -RTK_ACT_UP) %>%
+  inner_join(enrichment_scores2, by = "short_timepoint")
+cnames <- c(cnames, cnames2[-1])
 samples_dict <- vroom("data-raw/MBCp_sample_dictionary.tsv") %>%
   clean_names()
 

@@ -1,8 +1,8 @@
 utils::globalVariables(c("mbcp_enrichment_scores", "mbcp_enrichment_class"))
 #' Get MBCproject enrichment scores
 #'
-#' @param signatures Character vector of signature ids to filter rows
 #' @param samples Character vector of samples to filter columns
+#' @param signatures Character vector of signature ids to filter rows
 #' @return A numeric matrix with normalized enrichment scores for hallmark and selected sets in the MBCproject
 #' @export
 #'

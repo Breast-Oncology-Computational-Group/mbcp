@@ -1,14 +1,14 @@
 utils::globalVariables(c("mbcp_log2_tpms"))
 #' Get TPMs
 #'
-#' @param genes Character vector of hugo symbols to filter rows
 #' @param samples Character vector of samples to filter columns
+#' @param genes Character vector of hugo symbols to filter rows
 #' @return A matrix of TPMs with genes as rows and samples as columns with sample_alias as column names
 #' @export
 #'
 #' @examples
 #' get_mbcp_tpms()
-get_mbcp_tpms <- function(genes = NULL, samples = NULL) {
+get_mbcp_tpms <- function(samples = NULL, genes = NULL) {
   tpms <- mbcp_log2_tpms
 
   if(!is.null(samples)) {
@@ -34,7 +34,7 @@ get_mbcp_tpms <- function(genes = NULL, samples = NULL) {
 #'
 #' @examples
 #' get_mbcp_tpms_uq()
-get_mbcp_tpms_uq <- function(genes = NULL, samples = NULL) {
+get_mbcp_tpms_uq <- function(samples = NULL, genes = NULL) {
   tpms <- get_mbcp_tpms(genes = NULL, samples = NULL)
 
   if(!is.null(samples)) {

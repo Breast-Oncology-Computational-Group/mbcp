@@ -142,7 +142,7 @@ test_that("get_mbcp_tpms_up returns correct output", {
 test_that("get_mbcp_tpms_uq returns correct output when filtered", {
   gtpms <- mock(mat)
   with_mocked_bindings(code = {
-    rtpms <- get_mbcp_tpms_uq(c("g1", "g3", "g4"), c("s2", "s3", "s5"))
+    rtpms <- get_mbcp_tpms_uq(samples = c("s2", "s3", "s5"), genes = c("g1", "g3", "g4"))
     expect_identical(rtpms, result[c("g1", "g3", "g4"), c("s2", "s3", "s5")])
   }, get_mbcp_tpms = gtpms)
 })
@@ -151,7 +151,7 @@ test_that("get_mbcp_tpms_uq returns correct output when filtered for 1x1", {
 
   gtpms <- mock(mat)
   with_mocked_bindings(code = {
-    rtpms <- get_mbcp_tpms_uq(c("g1"), c("s2"))
+    rtpms <- get_mbcp_tpms_uq(c("s2"), c("g1"))
     expect_identical(rtpms, result[c("g1"), c("s2"), drop = F])
   }, get_mbcp_tpms = gtpms)
 })

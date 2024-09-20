@@ -4,12 +4,12 @@
 \alias{get_mbcp_tpms}
 \title{Get TPMs}
 \usage{
-get_mbcp_tpms(genes = NULL, samples = NULL)
+get_mbcp_tpms(samples = NULL, genes = NULL)
 }
 \arguments{
-\item{genes}{Character vector of hugo symbols to filter rows}
-
 \item{samples}{Character vector of samples to filter columns}
+
+\item{genes}{Character vector of hugo symbols to filter rows}
 }
 \value{
 A matrix of TPMs with genes as rows and samples as columns with sample_alias as column names

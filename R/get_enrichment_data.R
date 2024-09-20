@@ -9,17 +9,21 @@ utils::globalVariables(c("mbcp_enrichment_scores", "mbcp_enrichment_class"))
 #' @examples
 #' get_mbcp_enrichment_scores()
 get_mbcp_enrichment_scores <- function(samples = NULL, signatures = NULL) {
+  scores <- mbcp_enrichment_scores
 
   if(!is.null(samples)) {
     stopifnot("samples should be a character vector" = is.character(samples),
-              "invalid sample selection" = all(samples %in% colnames(mbcp_enrichment_scores)))
+              "invalid sample selection" = all(samples %in% colnames(scores)))
   }
 
   if(!is.null(signatures)) {
     stopifnot("signatures should be a character vector" = is.character(signatures),
-              "invalid signature selection" = all(signatures %in% rownames(mbcp_enrichment_scores)))
+              "invalid signature selection" = all(signatures %in% rownames(scores)))
   }
-  return(mbcp_enrichment_scores[signatures, samples, drop = FALSE])
+
+  scores <- if(!is.null(signatures)) scores[signatures, , drop = F] else scores
+  scores <- if(!is.null(samples)) scores[, samples, drop = F] else scores
+  return(scores)
 }
 
 #' Get MBCproject enrichment classification
@@ -31,14 +35,19 @@ get_mbcp_enrichment_scores <- function(samples = NULL, signatures = NULL) {
 #' @examples
 #' get_mbcp_enrichment_class()
 get_mbcp_enrichment_class <- function(samples = NULL, signatures = NULL) {
+  class <- mbcp_enrichment_class
+
   if(!is.null(samples)) {
     stopifnot("samples should be a character vector" = is.character(samples),
-              "invalid sample selection" = all(samples %in% colnames(mbcp_enrichment_class)))
+              "invalid sample selection" = all(samples %in% colnames(class)))
   }
 
   if(!is.null(signatures)) {
     stopifnot("signatures should be a character vector" = is.character(signatures),
-              "invalid signature selection" = all(signatures %in% rownames(mbcp_enrichment_class)))
+              "invalid signature selection" = all(signatures %in% rownames(class)))
   }
-  return(mbcp_enrichment_class[signatures, samples, drop = FALSE])
+
+  class <- if(!is.null(signatures)) class[signatures, , drop = F] else class
+  class <- if(!is.null(samples)) class[, samples, drop = F] else class
+  return(class)
 }

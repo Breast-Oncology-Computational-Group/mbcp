@@ -19,6 +19,11 @@ test_that("get_mbcp_tpms returns a numeric matrix", {
   expect_true(is.numeric(tpms))
 })
 
+test_that("get_mbcp_tpms returns the entire dataset", {
+  tpms <- get_mbcp_tpms()
+  expect_equal(mbcp_log2_tpms, tpms)
+})
+
 test_that("get_mbcp_tpms throws error when samples argument is not a character vector", {
   expect_error(get_mbcp_tpms(samples = 1), "samples should be a character vector")
   expect_error(get_mbcp_tpms(samples = FALSE), "samples should be a character vector")

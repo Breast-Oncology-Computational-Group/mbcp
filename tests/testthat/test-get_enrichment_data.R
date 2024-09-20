@@ -3,6 +3,11 @@ test_that("get_mbcp_enrichment_scores returns a numeric matrix", {
   expect_true(is.numeric(scores))
 })
 
+test_that("get_mbcp_enrichment_scores returns the entire dataset", {
+  scores <- get_mbcp_enrichment_scores()
+  expect_equal(mbcp_enrichment_scores, scores)
+})
+
 test_that("get_mbcp_enrichment_scores throws error when samples argument is not a character vector", {
   expect_error(get_mbcp_enrichment_scores(samples = 1), "samples should be a character vector")
   expect_error(get_mbcp_enrichment_scores(samples = FALSE), "samples should be a character vector")
@@ -50,6 +55,11 @@ test_that("get_mbcp_enrichment_scores returns correct dimensions with valid samp
 test_that("get_mbcp_enrichment_class returns a character matrix", {
   class_data <- get_mbcp_enrichment_class()
   expect_true(is.character(class_data))
+})
+
+test_that("get_mbcp_enrichment_class returns the entire dataset", {
+  class_data <- get_mbcp_enrichment_class()
+  expect_equal(mbcp_enrichment_class, class_data)
 })
 
 test_that("get_mbcp_enrichment_class throws error when samples argument is not a character vector", {

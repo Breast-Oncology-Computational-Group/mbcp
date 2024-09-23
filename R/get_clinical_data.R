@@ -20,7 +20,7 @@ get_clinical_data_all_variables <- function() {
 get_clinical_data <- function() {
   return(get_clinical_data_all_variables() |>
            dplyr::select(.data$sample_alias, .data$participant_id, .data$sample_timepoint, .data$wes_sample_id,
-                         .data$receptor_status_dx_all, .data$bx_location, .data$dx_histology, .data$pam50_subtype, .data$calc_time_to_mets_dx_days,
+                         .data$receptor_status_dx_all, .data$hr_status_dx_all,  .data$bx_location, .data$dx_histology, .data$pam50_subtype, .data$calc_time_to_mets_dx_days,
                          .data$calc_met_setting, .data$calc_primary_treat, .data$purity))
 
 }

@@ -18,7 +18,7 @@ test_that("get_clinical_data calls get_clinical_data_all_variables()", {
 test_that("get_clinical_data returns correct columns", {
   df = get_clinical_data()
   exp_colnames = c("sample_alias", "participant_id", "sample_timepoint", "wes_sample_id",
-  "receptor_status_dx_all", "bx_location", "dx_histology", "pam50_subtype", "calc_time_to_mets_dx_days",
+  "receptor_status_dx_all", "hr_status_dx_all", "bx_location", "dx_histology", "pam50_subtype", "calc_time_to_mets_dx_days",
   "calc_met_setting", "calc_primary_treat", "purity")
   expect_equal(colnames(df), exp_colnames)
 })

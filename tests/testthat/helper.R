@@ -7,6 +7,7 @@ mocked_clinical_data <- data.frame(
   participant_id = sample(1:100, 100),
   wes_sample_id = sample(1:100, 100),
   receptor_status_dx_all = sample(c("Positive", "Negative"), 100, replace = TRUE),
+  hr_status_dx_all = sample(c("Positive", "Negative"), 100, replace = TRUE),
   bx_location = sample(c("Location1", "Location2"), 100, replace = TRUE),
   dx_histology = sample(c("Hist1", "Histology2"), 100, replace = TRUE),
   pam50_subtype = sample(c("Subtype1", "Subtype2"), 100, replace = TRUE),

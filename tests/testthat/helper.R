@@ -1,4 +1,5 @@
 library(mockery)
+library(dplyr)
 
 set.seed(123)
 mocked_clinical_data <- data.frame(
@@ -14,7 +15,9 @@ mocked_clinical_data <- data.frame(
   calc_time_to_mets_dx_days = sample(1:500, 100),
   calc_met_setting = sample(c("Setting1", "Setting2"), 100, replace = TRUE),
   calc_primary_treat = sample(c("Treatment1", "Treatment2"), 100, replace = TRUE),
-  purity = runif(100) # Generate random numbers between 0 and 1
+  purity = runif(100), # Generate random numbers between 0 and 1
+  timepoint = sample(1:5, 100, replace = TRUE),
+  n_participant = sample(1:5, 100, replace = TRUE)
 )
 
 mocked_tpms <- matrix(runif(1000), nrow = 100, ncol = 10)

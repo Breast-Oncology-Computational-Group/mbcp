@@ -5,7 +5,7 @@
 \alias{mbcp_clinical_data}
 \title{MBCproject clinical data}
 \format{
-An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 421 rows and 210 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 421 rows and 212 columns.
 }
 \usage{
 mbcp_clinical_data

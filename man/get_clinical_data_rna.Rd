@@ -13,7 +13,7 @@ NULL, "normals", "purity", "tissues", "breast"}
 \item{wes}{A logical indicating if clinical data for samples with RNA and WES should be returned}
 }
 \value{
-A data frame with selected variables
+A data frame with sample level clinical information
 }
 \description{
 Get clinical data for RNA samples

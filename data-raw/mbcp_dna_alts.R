@@ -36,7 +36,7 @@ maf_na_ccf <- maf_na_ccf %>%
 # For Variant classification that has a functional annotation by oncoKB - override that and mark it on the coMut override order
 # 1. Mutational effect 2. Hotspot 3. Multi hits
 #For eg : any gene that has >1 non silent mutation in a sample will  be marked as multhit (eg ESR1 in 22 and ERBB2 in 32).
-maf = maf %>%
+maf <- maf %>%
   mutate(final_variant_classification = ifelse(!mutation_effect %in% c("Unknown","Inconclusive"), mutation_effect,
                                                ifelse(!is.na(is_a_hotspot) | !is.na(is_a_3d_hotspot), paste('Hotspot'),
                                                       variant_classification))) %>%
@@ -45,20 +45,20 @@ maf = maf %>%
 
 #The "known" neutrals are classified as their variant type. This is so we are consistent with how we
 # classify non-knonw missense muts. Otherwise these would be classified as "Other mutation"
-maf = maf %>%
+maf <-  maf %>%
   mutate(final_variant_classification = if_else(final_variant_classification=="Neutral", variant_classification, final_variant_classification))
 
 #To distinguish this from the known LOF, we use a Putative LOF classification
 putative_lof_list = c("Splice_Site", "Frame_Shift_Del", "Frame_Shift_Ins", "Nonsense_Mutation",
                     "Nonstop_Mutation","In_Frame_Del","Start_Codon_SNP","In_Frame_Ins","Start_Codon_Ins",
                     "Stop_Codon_Del","Stop_Codon_Ins")
-maf = maf %>%
+maf <- maf %>%
   mutate(final_variant_classification = if_else(final_variant_classification %in%
                                                   putative_lof_list, "Putative_loss_of_function", final_variant_classification))
 
 ## Remove silent alts
 silent_remove = c("Silent","Intron","3'UTR","5'Flank","5'UTR","IGR","lincRNA","RNA")
-maf_sub = maf %>%
+maf_sub <- maf %>%
   filter(!(final_variant_classification %in% silent_remove))
 
 ##############################################

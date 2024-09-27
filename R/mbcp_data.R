@@ -15,3 +15,34 @@
 #' Rows are genes identified by hugo symbol and columns are sample aliases
 #'
 "mbcp_log2_tpms"
+
+#' MBCproject DNA alts
+#'
+#' Data frame with DNA alterations found in MBCproject
+#' It includes SNVs and CNVs from MAF and SEG files
+#'
+"mbcp_dna_alts"
+
+#' MBCproject enrichment scores
+#'
+#' Numeric matrix with normalized enrichment scores for hallmark and selected sets in the MBCproject
+#' Rows are gene sets and columns are sample aliases. Scores were obtained using the
+#' GSEA implementation in the fgsea package
+#'
+"mbcp_enrichment_scores"
+
+#' MBCproject enrichment classification
+#'
+#' Classification of normalized enrichment scores for hallmark signatures and other selected sets
+#' obtained using a method for cohort balancing according to receptor status
+#' Categories: Lower Decile, Lower Quartile, Upper Quartile, Upper Decile.
+#' `NA` values for entries that do not fall into these categories
+"mbcp_enrichment_class"
+
+#' MBCproject log2 tpms classification
+#'
+#' Classification of log2 tpms values of gene expression
+#' obtained using a method for cohort balancing according to receptor status
+#' Categories: Lower Decile, Lower Quartile, Upper Quartile, Upper Decile.
+#' `NA` values for entries that do not fall into these categories
+"mbcp_log2_tpms_class"

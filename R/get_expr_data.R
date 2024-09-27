@@ -1,14 +1,14 @@
-utils::globalVariables(c("mbcp_log2_tpms"))
+utils::globalVariables(c("mbcp_log2_tpms", "mbcp_log2_tpms_class"))
 #' Get TPMs
 #'
-#' @param samples Character vector of samples to filter columns
 #' @param genes Character vector of hugo symbols to filter rows
+#' @param samples Character vector of samples to filter columns
 #' @return A matrix of TPMs with genes as rows and samples as columns with sample_alias as column names
 #' @export
 #'
 #' @examples
 #' get_mbcp_tpms()
-get_mbcp_tpms <- function(samples = NULL, genes = NULL) {
+get_mbcp_tpms <- function(genes = NULL, samples = NULL) {
   tpms <- mbcp_log2_tpms
 
   if(!is.null(samples)) {
@@ -34,7 +34,7 @@ get_mbcp_tpms <- function(samples = NULL, genes = NULL) {
 #'
 #' @examples
 #' get_mbcp_tpms_uq()
-get_mbcp_tpms_uq <- function(samples = NULL, genes = NULL) {
+get_mbcp_tpms_uq <- function(genes = NULL, samples = NULL) {
   tpms <- get_mbcp_tpms(genes = NULL, samples = NULL)
 
   if(!is.null(samples)) {
@@ -53,6 +53,34 @@ get_mbcp_tpms_uq <- function(samples = NULL, genes = NULL) {
   tpms_uq <- if(!is.null(samples)) tpms_uq[, samples, drop = F] else tpms_uq
 
   return(tpms_uq)
+}
+
+#' Get gene expression classification
+#'
+#' @inheritParams get_mbcp_tpms
+#' @return A character matrix with classification of log2 tpms.
+#' Categories are: Lower Decile, Lower Quartile, Upper Quartile, and Upper Decile. `NA` values for entries that do not fall into these categories.
+#'
+#' @export
+#'
+#' @examples
+#' get_mbcp_tpms_class()
+get_mbcp_tpms_class <- function(genes = NULL, samples = NULL) {
+
+  tpms_class <- mbcp_log2_tpms_class
+
+  if(!is.null(samples)) {
+    stopifnot("samples should be a character vector" = is.character(samples),
+              "invalid sample selection" = all(samples %in% colnames(tpms_class)))
+  }
+
+  if(!is.null(genes)) {
+    stopifnot("genes should be a character vector" = is.character(genes),
+              "invalid gene selection" = all(genes %in% rownames(tpms_class)))
+  }
+
+  tpms_class <- if(!is.null(genes)) tpms_class[genes, , drop = F] else tpms_class
+  tpms_class <- if(!is.null(samples)) tpms_class[, samples, drop = F] else tpms_class
 }
 
 #' Get matrix with mbcp data in long format

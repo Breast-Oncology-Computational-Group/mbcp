@@ -1,19 +1,3 @@
-mat <- matrix(c(10, 1, 2, 5, 30,
-                15, 2, 3, 4, 15,
-                20, 3, 4, 3, 20,
-                25, 4, 5, 2, 25,
-                30, 5, 6, 1, 10), nrow = 5, byrow = TRUE)
-colnames(mat) <- paste0("s", 1:5)
-rownames(mat) <- paste0("g", 1:5)
-
-result <- matrix(c(0.4, 0.25,  0.4, 1.25, 1.2,
-                   0.6, 0.50,  0.6, 1.00,  0.6,
-                   0.8, 0.75,  0.8, 0.75,  0.8,
-                   1.0, 1.00,  1.0, 0.50,  1.0,
-                   1.2, 1.25,  1.2, 0.25,  0.4), nrow = 5, byrow = T)
-colnames(result) <- paste0("s", 1:5)
-rownames(result) <- paste0("g", 1:5)
-
 test_that("get_mbcp_tpms returns a numeric matrix", {
   tpms <- get_mbcp_tpms()
   expect_true(is.numeric(tpms))
@@ -36,16 +20,16 @@ test_that("get_mbcp_tpms throws error when genes argument is not a character vec
   expect_error(get_mbcp_tpms(genes = sample(1:100, 5)), "genes should be a character vector")
 })
 
-test_that("get_mbcp_tpms throws error when samples argument includes
-          none existing samples", {
-  expect_error(get_mbcp_tpms(samples = c("invalid sample", "invalid sample 2")),
-               "invalid sample selection")
-})
-
 test_that("get_mbcp_tpms throws error when genes argument includes
           none existing genes", {
   expect_error(get_mbcp_tpms(genes = c("invalid gene", "invalid gene 2")),
                "invalid gene selection")
+})
+
+test_that("get_mbcp_tpms throws error when samples argument includes
+          none existing samples", {
+  expect_error(get_mbcp_tpms(samples = c("invalid sample", "invalid sample 2")),
+               "invalid sample selection")
 })
 
 test_that("get_mbcp_tpms returns correct dimensions with valid
@@ -132,27 +116,27 @@ test_that("get_mbcp_tpms_uq calls get_mbcp_tpms with genes = NULL and samples = 
 })
 
 test_that("get_mbcp_tpms_up returns correct output", {
-  gtpms <- mock(mat)
+  gtpms <- mock(mocked_tpms_min)
   with_mocked_bindings(code = {
     rtpms <- get_mbcp_tpms_uq()
-    expect_identical(rtpms, result)
+    expect_identical(rtpms, mocked_tpms_min_uq)
   }, get_mbcp_tpms = gtpms)
 })
 
 test_that("get_mbcp_tpms_uq returns correct output when filtered", {
-  gtpms <- mock(mat)
+  gtpms <- mock(mocked_tpms_min)
   with_mocked_bindings(code = {
-    rtpms <- get_mbcp_tpms_uq(samples = c("s2", "s3", "s5"), genes = c("g1", "g3", "g4"))
-    expect_identical(rtpms, result[c("g1", "g3", "g4"), c("s2", "s3", "s5")])
+    rtpms <- get_mbcp_tpms_uq(c("g1", "g3", "g4"), c("s2", "s3", "s5"))
+    expect_identical(rtpms, mocked_tpms_min_uq[c("g1", "g3", "g4"), c("s2", "s3", "s5")])
   }, get_mbcp_tpms = gtpms)
 })
 
 test_that("get_mbcp_tpms_uq returns correct output when filtered for 1x1", {
 
-  gtpms <- mock(mat)
+  gtpms <- mock(mocked_tpms_min)
   with_mocked_bindings(code = {
-    rtpms <- get_mbcp_tpms_uq(c("s2"), c("g1"))
-    expect_identical(rtpms, result[c("g1"), c("s2"), drop = F])
+    rtpms <- get_mbcp_tpms_uq(c("g1"), c("s2"))
+    expect_identical(rtpms, mocked_tpms_min_uq[c("g1"), c("s2"), drop = F])
   }, get_mbcp_tpms = gtpms)
 })
 
@@ -191,4 +175,56 @@ test_that("to_longer returns a dataframe with correct data", {
   df <- to_longer(mocked_tpms, "hugo_symbol")
   expect_true(all(rownames(mocked_tpms) %in% df$hugo_symbol))
   expect_true(all(colnames(mocked_tpms) %in% df$sample_alias))
+})
+
+test_that("get_mbcp_tpms_class returns a character matrix", {
+  tpms_class <- get_mbcp_tpms_class()
+  expect_true(is.character(tpms_class))
+})
+
+test_that("get_mbcp_tpms_class returns the entire dataset", {
+  tpms_class <- get_mbcp_tpms_class()
+  expect_equal(mbcp_log2_tpms_class, tpms_class)
+})
+
+test_that("get_mbcp_tpms_class throws error when samples argument is not a character vector", {
+  expect_error(get_mbcp_tpms_class(samples = 1), "samples should be a character vector")
+  expect_error(get_mbcp_tpms_class(samples = FALSE), "samples should be a character vector")
+  expect_error(get_mbcp_tpms_class(samples = sample(1:100, 5)), "samples should be a character vector")
+})
+
+test_that("get_mbcp_tpms_class throws error when genes argument is not a character vector", {
+  expect_error(get_mbcp_tpms_class(genes = 1), "genes should be a character vector")
+  expect_error(get_mbcp_tpms_class(genes = FALSE), "genes should be a character vector")
+  expect_error(get_mbcp_tpms_class(genes = sample(1:100, 5)), "genes should be a character vector")
+})
+
+test_that("get_mbcp_tpms_class throws error when genes argument includes
+          none existing genes", {
+            expect_error(get_mbcp_tpms_class(genes = c("invalid gene", "invalid gene 2")),
+                         "invalid gene selection")
+})
+
+test_that("get_mbcp_tpms_class throws error when samples argument includes
+          none existing samples", {
+            expect_error(get_mbcp_tpms_class(samples = c("invalid sample", "invalid sample 2")),
+                         "invalid sample selection")
+})
+
+test_that("get_mbcp_tpms_class returns correct dimensions with valid samples and genes", {
+    ss <- sample(colnames(mbcp_log2_tpms_class), 5)
+    gs <- sample(rownames(mbcp_log2_tpms_class), 5)
+    tpms <- get_mbcp_tpms_class(gs, ss)
+    expect_equal(dim(tpms), c(5, 5))
+    expect_equal(colnames(tpms), ss)
+    expect_equal(rownames(tpms), gs)
+})
+
+test_that("get_mbcp_tpms_class returns correct output when filtered for 1x1", {
+  ss <- sample(colnames(mbcp_log2_tpms_class), 1)
+  gs <- sample(rownames(mbcp_log2_tpms_class), 1)
+  tpms <- get_mbcp_tpms_class(gs, ss)
+  expect_equal(dim(tpms), c(1, 1))
+  expect_equal(colnames(tpms), ss)
+  expect_equal(rownames(tpms), gs)
 })

@@ -143,6 +143,10 @@ test_that("get_clinical_data_first_samples returns one entry per patient and tim
   expect_true(all(df$timepoint == 1))
 })
 
+test_that("get_clinical_Data_first_samples returns ungrouped data for sample_type = any", {
+  expect_false(dplyr::is_grouped_df(get_clinical_data_first_samples("any")))
+})
+
 test_that("get_clinical_data_first_samples calls get_clinical_data_wes() if sample_type == wes", {
   gcd = mock(mocked_clinical_data)
 
@@ -161,6 +165,10 @@ test_that("get_clinical_data_first_samples with sample_type == wes returns one e
     dplyr::inner_join(df, by = dplyr::join_by(participant_id == participant_id, timepoint < timepoint))
 
   expect_true(all(is.na(left_out_clinical_data$wes_sample_id.x)))
+})
+
+test_that("get_clinical_data_first_samples returns ungrouped data for sample_type = wes", {
+  expect_false(dplyr::is_grouped_df(get_clinical_data_first_samples("wes")))
 })
 
 test_that("get_clinical_data_first_samples calls get_clinical_data_rna() if sample_type == rna", {
@@ -184,6 +192,10 @@ test_that("get_clinical_data_first_samples with sample_type == rna returns one e
   expect_true(all(is.na(left_out_clinical_data$pam50_subtype.x)))
 })
 
+test_that("get_clinical_data_first_samples returns ungrouped data for sample_type = rna", {
+  expect_false(dplyr::is_grouped_df(get_clinical_data_first_samples("rna")))
+})
+
 test_that("get_clinical_data_first_samples calls get_clinical_data_rna() if sample_type == wes_rna", {
   gcd = mock(mocked_clinical_data)
 
@@ -205,6 +217,10 @@ test_that("get_clinical_data_first_samples with sample_type == rna returns one e
   expect_true(all(is.na(left_out_clinical_data$wes_sample_id.x) | is.na(left_out_clinical_data$pam50_subtype.x)))
 })
 
+test_that("get_clinical_data_first_samples returns ungrouped data for sample_type = wes_rna", {
+  expect_false(dplyr::is_grouped_df(get_clinical_data_first_samples("wes_rna")))
+})
+
 test_that("get_clinical_data_first_samples throws error when invalid sample_type", {
   expect_error(get_clinical_data_first_samples("invalid sample type"), "sample_type should be one of: any, wes, rna or wes_rna")
   expect_error(get_clinical_data_first_samples(34), "sample_type should be one of: any, wes, rna or wes_rna")
@@ -224,6 +240,10 @@ test_that("get_clinical_data_latest_samples calls get_clinical_data() if sample_
   }, get_clinical_data = gcd)
 })
 
+test_that("get_clinical_data_latest_samples returns ungrouped data for sample_type = any", {
+  expect_false(dplyr::is_grouped_df(get_clinical_data_latest_samples("any")))
+})
+
 test_that("get_clinical_data_latest_samples returns one entry per patient and timepoint == n_participant", {
   df <- get_clinical_data_latest_samples("any")
   expect_equal(length(unique(df$participant_id)), nrow(df))
@@ -237,6 +257,10 @@ test_that("get_clinical_data_latest_samples calls get_clinical_data_wes() if sam
     get_clinical_data_latest_samples(sample_type = "wes")
     expect_called(gcd, 1)
   }, get_clinical_data_wes = gcd)
+})
+
+test_that("get_clinical_data_latest_samples returns ungrouped data for sample_type = wes", {
+  expect_false(dplyr::is_grouped_df(get_clinical_data_latest_samples("wes")))
 })
 
 test_that("get_clinical_data_latest_samples with sample_type == wes returns one entry per patient and correct timepoint", {
@@ -271,6 +295,10 @@ test_that("get_clinical_data_latest_samples with sample_type == rna returns one 
   expect_true(all(is.na(left_out_clinical_data$pam50_subtype.x)))
 })
 
+test_that("get_clinical_data_latest_samples returns ungrouped data for sample_type = rna", {
+  expect_false(dplyr::is_grouped_df(get_clinical_data_latest_samples("rna")))
+})
+
 test_that("get_clinical_data_latest_samples calls get_clinical_data_rna() if sample_type == wes_rna", {
   gcd = mock(mocked_clinical_data)
 
@@ -290,4 +318,8 @@ test_that("get_clinical_data_latest_samples with sample_type == rna returns one 
     dplyr::inner_join(df, by = dplyr::join_by(participant_id == participant_id, timepoint > timepoint))
 
   expect_true(all(is.na(left_out_clinical_data$wes_sample_id.x) | is.na(left_out_clinical_data$pam50_subtype.x)))
+})
+
+test_that("get_clinical_data_latest_samples returns ungrouped data for sample_type = wes_rna", {
+  expect_false(dplyr::is_grouped_df(get_clinical_data_latest_samples("wes_rna")))
 })

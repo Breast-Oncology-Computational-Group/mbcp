@@ -109,15 +109,18 @@ get_clinical_data_first_samples <- function(sample_type = "any") {
   } else if(sample_type == "wes") {
     return(get_clinical_data_wes() |>
              dplyr::group_by(.data$participant_id) |>
-             dplyr::slice_min(.data$timepoint))
+             dplyr::slice_min(.data$timepoint) |>
+             dplyr::ungroup())
   } else if(sample_type == "rna") {
     return(get_clinical_data_rna() |>
              dplyr::group_by(.data$participant_id) |>
-             dplyr::slice_min(.data$timepoint))
+             dplyr::slice_min(.data$timepoint)|>
+             dplyr::ungroup())
   } else if(sample_type == "wes_rna") {
     return(get_clinical_data_rna(wes = TRUE) |>
              dplyr::group_by(.data$participant_id) |>
-             dplyr::slice_min(.data$timepoint))
+             dplyr::slice_min(.data$timepoint)|>
+             dplyr::ungroup())
   }
 }
 
@@ -140,14 +143,17 @@ get_clinical_data_latest_samples <- function(sample_type = "any") {
   } else if(sample_type == "wes") {
     return(get_clinical_data_wes() |>
              dplyr::group_by(.data$participant_id) |>
-             dplyr::slice_max(.data$timepoint))
+             dplyr::slice_max(.data$timepoint) |>
+             dplyr::ungroup())
   } else if(sample_type == "rna") {
     return(get_clinical_data_rna() |>
              dplyr::group_by(.data$participant_id) |>
-             dplyr::slice_max(.data$timepoint))
+             dplyr::slice_max(.data$timepoint) |>
+             dplyr::ungroup())
   } else if(sample_type == "wes_rna") {
     return(get_clinical_data_rna(wes = TRUE) |>
              dplyr::group_by(.data$participant_id) |>
-             dplyr::slice_max(.data$timepoint))
+             dplyr::slice_max(.data$timepoint) |>
+             dplyr::ungroup())
   }
 }

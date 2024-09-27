@@ -4,12 +4,12 @@
 \alias{get_mbcp_tpms_uq}
 \title{Get upper quartile normalization TPMs}
 \usage{
-get_mbcp_tpms_uq(samples = NULL, genes = NULL)
+get_mbcp_tpms_uq(genes = NULL, samples = NULL)
 }
 \arguments{
-\item{samples}{Character vector of samples to filter columns}
-
 \item{genes}{Character vector of hugo symbols to filter rows}
+
+\item{samples}{Character vector of samples to filter columns}
 }
 \value{
 A matrix of UQ TPMs with genes as rows and samples as columns with sample_alias as column names

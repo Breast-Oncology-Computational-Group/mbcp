@@ -4,12 +4,12 @@
 \alias{get_mbcp_enrichment_scores}
 \title{Get MBCproject enrichment scores}
 \usage{
-get_mbcp_enrichment_scores(samples = NULL, signatures = NULL)
+get_mbcp_enrichment_scores(signatures = NULL, samples = NULL)
 }
 \arguments{
-\item{samples}{Character vector of samples to filter columns}
-
 \item{signatures}{Character vector of signature ids to filter rows}
+
+\item{samples}{Character vector of samples to filter columns}
 }
 \value{
 A numeric matrix with normalized enrichment scores for hallmark and selected sets in the MBCproject

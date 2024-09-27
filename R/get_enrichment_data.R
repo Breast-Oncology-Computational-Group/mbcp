@@ -1,14 +1,14 @@
 utils::globalVariables(c("mbcp_enrichment_scores", "mbcp_enrichment_class"))
 #' Get MBCproject enrichment scores
 #'
-#' @param samples Character vector of samples to filter columns
 #' @param signatures Character vector of signature ids to filter rows
+#' @param samples Character vector of samples to filter columns
 #' @return A numeric matrix with normalized enrichment scores for hallmark and selected sets in the MBCproject
 #' @export
 #'
 #' @examples
 #' get_mbcp_enrichment_scores()
-get_mbcp_enrichment_scores <- function(samples = NULL, signatures = NULL) {
+get_mbcp_enrichment_scores <- function(signatures = NULL, samples = NULL) {
   scores <- mbcp_enrichment_scores
 
   if(!is.null(samples)) {
@@ -29,12 +29,13 @@ get_mbcp_enrichment_scores <- function(samples = NULL, signatures = NULL) {
 #' Get MBCproject enrichment classification
 #'
 #' @inheritParams get_mbcp_enrichment_scores
-#' @return A character matrix with classification of normalized enrichment scores for hallmark and selected sets in the MBCproject
+#' @return A character matrix with classification of normalized enrichment scores for hallmark signatures and other selected sets.
+#' Categories are: Lower Decile, Lower Quartile, Upper Quartile, and Upper Decile. `NA` values for entries that do not fall into these categories.
 #' @export
 #'
 #' @examples
 #' get_mbcp_enrichment_class()
-get_mbcp_enrichment_class <- function(samples = NULL, signatures = NULL) {
+get_mbcp_enrichment_class <- function(signatures = NULL, samples = NULL) {
   class <- mbcp_enrichment_class
 
   if(!is.null(samples)) {

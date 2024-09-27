@@ -4,15 +4,16 @@
 \alias{get_mbcp_enrichment_class}
 \title{Get MBCproject enrichment classification}
 \usage{
-get_mbcp_enrichment_class(samples = NULL, signatures = NULL)
+get_mbcp_enrichment_class(signatures = NULL, samples = NULL)
 }
 \arguments{
-\item{samples}{Character vector of samples to filter columns}
-
 \item{signatures}{Character vector of signature ids to filter rows}
+
+\item{samples}{Character vector of samples to filter columns}
 }
 \value{
-A character matrix with classification of normalized enrichment scores for hallmark and selected sets in the MBCproject
+A character matrix with classification of normalized enrichment scores for hallmark signatures and other selected sets.
+Categories are: Lower Decile, Lower Quartile, Upper Quartile, and Upper Decile. \code{NA} values for entries that do not fall into these categories.
 }
 \description{
 Get MBCproject enrichment classification

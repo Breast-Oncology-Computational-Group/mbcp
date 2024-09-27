@@ -11,8 +11,9 @@ An object of class \code{matrix} (inherits from \code{array}) with 231 rows and 
 mbcp_enrichment_class
 }
 \description{
-Classification of normalized enrichment scores for hallmark and selected sets in the MBCproject
+Classification of normalized enrichment scores for hallmark signatures and other selected sets
 obtained using a method for cohort balancing according to receptor status
 Categories: Lower Decile, Lower Quartile, Upper Quartile, Upper Decile.
+\code{NA} values for entries that do not fall into these categories
 }
 \keyword{datasets}

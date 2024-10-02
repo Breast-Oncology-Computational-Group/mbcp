@@ -52,3 +52,16 @@ get_mbcp_enrichment_class <- function(signatures = NULL, samples = NULL) {
   class <- if(!is.null(samples)) class[, samples, drop = F] else class
   return(class)
 }
+
+#' Get list of signatures and their associated genes studied in the MBCProject
+#'
+#' @return A data frame with signature, gene, and category columns for genes functionally
+#' associated with their signatures.
+#' @export
+#'
+#' @examples
+#' get_mbcp_enrichment_signatures()
+get_mbcp_enrichment_signatures <- function() {
+  return(mbcp_genes_signatures |>
+           dplyr::select(.data$signature_id, .data$hugo_symbol, .data$category))
+}

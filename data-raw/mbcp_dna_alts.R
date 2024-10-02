@@ -15,6 +15,17 @@ maf <- vroom("data-raw/MBCproject_379_final_pairset.aggregated.corrected.wOncoKb
 maf_na_ccf <- maf %>%
   filter(is.na(ccf_hat))
 
+# ccf_hat = NA when q_hat == 0, hs_q_hat_1 = 0 and hs_q_hat_2 = 0  .
+# According to ABSOLUTE docs:
+# q_hat: The total copy number of the segment on which the mutation occurs (modal.a1 + modal.a2)
+# fit_SSNV_model.R line 160
+
+# Related:
+# HS_q_hat_1 & HS_q_hat_2: The allele specific copy numbers of the segment on which the mutation occurs.
+# HSCN_subclonal_SCNA_fit_SSNVs.R line 27 and reconcile_clonal_homdels_with_obs_SSNVs function in
+# get_SCNA_cancer_cell_fractions.R line 234
+# So absolute thinks the mutation is in a region with 0 copy number
+
 # we can't do anything with the ones that have no ccf distribution
 # or the ones with really low counts
 maf_na_ccf <- maf_na_ccf %>% filter(!is.na(x0), alt >= 2)

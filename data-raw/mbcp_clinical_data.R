@@ -34,17 +34,17 @@ mbcp_clinical_data <- vroom("data-raw/sample_patient_metadata_HRHER2status_PAM50
                                             "PRIMARY_TX_NAIVE", NA)),
          calc_primary_treat = factor(calc_primary_treat, levels = primary_treat_order)) %>%
   select(-patient_id, -sample_id) %>%
-  select(sample_alias = clean_sample_alias, participant_id = clean_participant, sample_timepoint, wes_sample_id,
+  select(sample_alias = clean_sample_alias, patient_id = clean_participant, sample_timepoint, wes_sample_id,
          everything())
 
 
 ### Setting sample order by patient
 mbcp_clinical_data <- mbcp_clinical_data %>%
   mutate(is_breast = ifelse(bx_location == "BREAST", 1, 2)) %>%
-  group_by(participant_id) %>%
+  group_by(patient_id) %>%
   arrange(bx_time_days, is_breast, .by_group = TRUE) %>%
   mutate(timepoint = row_number(),
-         n_participant = n()) %>%
+         n_bypatient = n()) %>%
   ungroup() %>%
   select(-is_breast)
 

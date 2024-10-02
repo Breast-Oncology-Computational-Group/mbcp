@@ -17,9 +17,10 @@ test_that("get_clinical_data calls get_clinical_data_all_variables()", {
 
 test_that("get_clinical_data returns correct columns", {
   df = get_clinical_data()
-  exp_colnames = c("sample_alias", "participant_id", "sample_timepoint", "wes_sample_id",
-  "receptor_status_dx_all", "hr_status_dx_all", "bx_location", "dx_histology", "pam50_subtype", "calc_time_to_mets_dx_days",
-  "calc_met_setting", "calc_primary_treat", "purity", "timepoint", "n_participant")
+  exp_colnames = c("sample_alias", "patient_id", "sample_timepoint", "wes_sample_id",
+  "receptor_status_dx_all", "hr_status_dx_all", "dx_histology", "pam50_subtype",
+  "bx_location", "bx_time_days", "calc_time_to_mets_dx_days",
+  "calc_met_setting", "calc_primary_treat", "purity", "timepoint", "n_bypatient")
   expect_equal(colnames(df), exp_colnames)
 })
 
@@ -139,7 +140,7 @@ test_that("get_clinical_data_first_samples calls get_clinical_data() if sample_t
 
 test_that("get_clinical_data_first_samples returns one entry per patient and timepoint == 1", {
   df <- get_clinical_data_first_samples("any")
-  expect_equal(length(unique(df$participant_id)), nrow(df))
+  expect_equal(length(unique(df$patient_id)), nrow(df))
   expect_true(all(df$timepoint == 1))
 })
 
@@ -158,11 +159,11 @@ test_that("get_clinical_data_first_samples calls get_clinical_data_wes() if samp
 
 test_that("get_clinical_data_first_samples with sample_type == wes returns one entry per patient and correct timepoint", {
   df <- get_clinical_data_first_samples("wes")
-  expect_equal(length(unique(df$participant_id)), nrow(df))
+  expect_equal(length(unique(df$patient_id)), nrow(df))
 
   left_out_clinical_data <- get_clinical_data() |>
     dplyr::anti_join(df, by = "sample_alias") |>
-    dplyr::inner_join(df, by = dplyr::join_by(participant_id == participant_id, timepoint < timepoint))
+    dplyr::inner_join(df, by = dplyr::join_by(patient_id == patient_id, timepoint < timepoint))
 
   expect_true(all(is.na(left_out_clinical_data$wes_sample_id.x)))
 })
@@ -183,11 +184,11 @@ test_that("get_clinical_data_first_samples calls get_clinical_data_rna() if samp
 
 test_that("get_clinical_data_first_samples with sample_type == rna returns one entry per patient and correct timepoint", {
   df <- get_clinical_data_first_samples("rna")
-  expect_equal(length(unique(df$participant_id)), nrow(df))
+  expect_equal(length(unique(df$patient_id)), nrow(df))
 
   left_out_clinical_data <- get_clinical_data() |>
     dplyr::anti_join(df, by = "sample_alias") |>
-    dplyr::inner_join(df, by = dplyr::join_by(participant_id == participant_id, timepoint < timepoint))
+    dplyr::inner_join(df, by = dplyr::join_by(patient_id == patient_id, timepoint < timepoint))
 
   expect_true(all(is.na(left_out_clinical_data$pam50_subtype.x)))
 })
@@ -208,11 +209,11 @@ test_that("get_clinical_data_first_samples calls get_clinical_data_rna() if samp
 
 test_that("get_clinical_data_first_samples with sample_type == rna returns one entry per patient and correct timepoint", {
   df <- get_clinical_data_first_samples("wes_rna")
-  expect_equal(length(unique(df$participant_id)), nrow(df))
+  expect_equal(length(unique(df$patient_id)), nrow(df))
 
   left_out_clinical_data <- get_clinical_data() |>
     dplyr::anti_join(df, by = "sample_alias") |>
-    dplyr::inner_join(df, by = dplyr::join_by(participant_id == participant_id, timepoint < timepoint))
+    dplyr::inner_join(df, by = dplyr::join_by(patient_id == patient_id, timepoint < timepoint))
 
   expect_true(all(is.na(left_out_clinical_data$wes_sample_id.x) | is.na(left_out_clinical_data$pam50_subtype.x)))
 })
@@ -244,10 +245,10 @@ test_that("get_clinical_data_latest_samples returns ungrouped data for sample_ty
   expect_false(dplyr::is_grouped_df(get_clinical_data_latest_samples("any")))
 })
 
-test_that("get_clinical_data_latest_samples returns one entry per patient and timepoint == n_participant", {
+test_that("get_clinical_data_latest_samples returns one entry per patient and timepoint == n_bypatient", {
   df <- get_clinical_data_latest_samples("any")
-  expect_equal(length(unique(df$participant_id)), nrow(df))
-  expect_true(all(df$timepoint == df$n_participant))
+  expect_equal(length(unique(df$patient_id)), nrow(df))
+  expect_true(all(df$timepoint == df$n_bypatient))
 })
 
 test_that("get_clinical_data_latest_samples calls get_clinical_data_wes() if sample_type == wes", {
@@ -265,11 +266,11 @@ test_that("get_clinical_data_latest_samples returns ungrouped data for sample_ty
 
 test_that("get_clinical_data_latest_samples with sample_type == wes returns one entry per patient and correct timepoint", {
   df <- get_clinical_data_latest_samples("wes")
-  expect_equal(length(unique(df$participant_id)), nrow(df))
+  expect_equal(length(unique(df$patient_id)), nrow(df))
 
   left_out_clinical_data <- get_clinical_data() |>
     dplyr::anti_join(df, by = "sample_alias") |>
-    dplyr::inner_join(df, by = dplyr::join_by(participant_id == participant_id, timepoint > timepoint))
+    dplyr::inner_join(df, by = dplyr::join_by(patient_id == patient_id, timepoint > timepoint))
 
   expect_true(all(is.na(left_out_clinical_data$wes_sample_id.x)))
 })
@@ -286,11 +287,11 @@ test_that("get_clinical_data_latest_samples calls get_clinical_data_rna() if sam
 
 test_that("get_clinical_data_latest_samples with sample_type == rna returns one entry per patient and correct timepoint", {
   df <- get_clinical_data_latest_samples("rna")
-  expect_equal(length(unique(df$participant_id)), nrow(df))
+  expect_equal(length(unique(df$patient_id)), nrow(df))
 
   left_out_clinical_data <- get_clinical_data() |>
     dplyr::anti_join(df, by = "sample_alias") |>
-    dplyr::inner_join(df, by = dplyr::join_by(participant_id == participant_id, timepoint > timepoint))
+    dplyr::inner_join(df, by = dplyr::join_by(patient_id == patient_id, timepoint > timepoint))
 
   expect_true(all(is.na(left_out_clinical_data$pam50_subtype.x)))
 })
@@ -311,11 +312,11 @@ test_that("get_clinical_data_latest_samples calls get_clinical_data_rna() if sam
 
 test_that("get_clinical_data_latest_samples with sample_type == rna returns one entry per patient and correct timepoint", {
   df <- get_clinical_data_latest_samples("wes_rna")
-  expect_equal(length(unique(df$participant_id)), nrow(df))
+  expect_equal(length(unique(df$patient_id)), nrow(df))
 
   left_out_clinical_data <- get_clinical_data() |>
     dplyr::anti_join(df, by = "sample_alias") |>
-    dplyr::inner_join(df, by = dplyr::join_by(participant_id == participant_id, timepoint > timepoint))
+    dplyr::inner_join(df, by = dplyr::join_by(patient_id == patient_id, timepoint > timepoint))
 
   expect_true(all(is.na(left_out_clinical_data$wes_sample_id.x) | is.na(left_out_clinical_data$pam50_subtype.x)))
 })

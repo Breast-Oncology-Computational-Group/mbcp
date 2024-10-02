@@ -4,7 +4,7 @@
 \alias{get_clinical_data_latest_samples}
 \title{Get clinical data for latest samples per patient}
 \usage{
-get_clinical_data_latest_samples(sample_type = "any")
+get_clinical_data_latest_samples(sample_type = "wes")
 }
 \arguments{
 \item{sample_type}{Character value to specify the type of samples to include. Options are:
@@ -22,6 +22,6 @@ A data frame with sample level clinical information
 Get clinical data for latest samples per patient
 }
 \examples{
-get_clinical_data_latest_samples(sample_type = "any")
+get_clinical_data_latest_samples(sample_type = "wes")
 get_clinical_data_latest_samples(sample_type = "wes_rna")
 }

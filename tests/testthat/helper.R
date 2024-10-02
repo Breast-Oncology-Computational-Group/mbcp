@@ -5,7 +5,7 @@ set.seed(123)
 mocked_clinical_data <- data.frame(
   sample_alias = sample(c("Alias1", "Alias2", "Alias3"), 100, replace = TRUE),
   sample_timepoint = sample(c("Timepoint1", "Timepoint2", "Timepoint3"), 100, replace = TRUE),
-  participant_id = sample(1:100, 100),
+  patient_id = sample(1:100, 100),
   wes_sample_id = sample(1:100, 100),
   receptor_status_dx_all = sample(c("Positive", "Negative"), 100, replace = TRUE),
   hr_status_dx_all = sample(c("Positive", "Negative"), 100, replace = TRUE),
@@ -17,7 +17,8 @@ mocked_clinical_data <- data.frame(
   calc_primary_treat = sample(c("Treatment1", "Treatment2"), 100, replace = TRUE),
   purity = runif(100), # Generate random numbers between 0 and 1
   timepoint = sample(1:5, 100, replace = TRUE),
-  n_participant = sample(1:5, 100, replace = TRUE)
+  n_bypatient = sample(1:5, 100, replace = TRUE),
+  bx_time_days =  sample(10:300, 100, replace = TRUE)
 )
 
 mocked_tpms <- matrix(runif(1000), nrow = 100, ncol = 10)

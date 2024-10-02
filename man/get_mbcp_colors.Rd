@@ -8,7 +8,7 @@ get_mbcp_colors(set)
 }
 \arguments{
 \item{set}{Character string specifying the color palette to return. Options are: "receptor", "pam50",
-"dna_alts", "mutation", "histology", "treatment", "metastasis", "expression", "germline_alts", "dna_signatures"}
+"dna_alts", "mutation", "histology", "treatment", "metastasis", "categories", "germline_alts", "dna_signatures"}
 }
 \value{
 A named vector of colors

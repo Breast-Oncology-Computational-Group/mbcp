@@ -42,8 +42,8 @@ get_mbcp_labels <- function(set) {
   treatment <- c("PRIMARY\nTX NAIVE", "MET TXED")
   names(treatment) <- c("PRIMARY_TX_NAIVE", "MET_TXED")
 
-  expression <- c("Lower Decile", "Lower Quartile", "Mid", "Upper Quartile", "Upper Decile")
-  names(expression) <- expression
+  categories <- c("Lower Decile", "Lower Quartile", "Mid", "Upper Quartile", "Upper Decile")
+  names(categories) <- categories
 
   germline_alts <- c("DeepDEL", "LOF", "LOH", "VUS SNV", "None Detected", "No Tumor WES")
   names(germline_alts) <- germline_alts
@@ -59,7 +59,7 @@ get_mbcp_labels <- function(set) {
                 histology = histology,
                 treatment = treatment,
                 metastasis = metastasis,
-                expression = expression,
+                categories = categories,
                 germline_alts = germline_alts,
                 dna_signatures = dna_signatures))
 }

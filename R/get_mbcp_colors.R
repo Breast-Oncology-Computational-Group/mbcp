@@ -1,7 +1,7 @@
 #' Get color palettes for MBC project data
 #'
 #' @param set Character string specifying the color palette to return. Options are: "receptor", "pam50",
-#' "dna_alts", "mutation", "histology", "treatment", "metastasis", "expression", "germline_alts", "dna_signatures"
+#' "dna_alts", "mutation", "histology", "treatment", "metastasis", "categories", "germline_alts", "dna_signatures"
 #'
 #' @return A named vector of colors
 #' @export
@@ -50,7 +50,7 @@ get_mbcp_colors <- function(set) {
 
   metastasis <- c("NO_METASTATIC_DISEASE_PRESENT" = "#008B88", "METASTATIC_DISEASE_PRESENT" = "#FFA500")
 
-  expression <- c("Lower Decile" = "#5e3c99", "Lower Quartile" = "#b2abd2",
+  categories <- c("Lower Decile" = "#5e3c99", "Lower Quartile" = "#b2abd2",
                        "Mid" = "#CECECE", "Upper Quartile" = "#fdb863",
                        "Upper Decile" = "#e66101")
 
@@ -70,7 +70,7 @@ get_mbcp_colors <- function(set) {
                 histology = histology,
                 treatment = treatment,
                 metastasis = metastasis,
-                expression = expression,
+                categories = categories,
                 germline_alts = germline_alts,
                 dna_signatures = dna_signatures))
 }

@@ -146,10 +146,10 @@ test_that("to_longer returns a data frame", {
 })
 
 test_that("to_longer throws error when first argument is not a numeric matrix", {
-  expect_error(to_longer("not a matrix", "hugo_symbol"), "mbcp_matrix should be a numeric matrix")
-  expect_error(to_longer(sample(1:100, 40), "hugo_symbol"), "mbcp_matrix should be a numeric matrix")
-  expect_error(to_longer(NULL, "hugo_symbol"), "mbcp_matrix should be a numeric matrix")
-  expect_error(to_longer(matrix(data = letters[1:6], nrow = 2), "hugo_symbol"))
+  expect_error(to_longer("not a matrix", "hugo_symbol"), "mbcp_matrix should be a numeric or a character matrix")
+  expect_error(to_longer(sample(1:100, 40), "hugo_symbol"), "mbcp_matrix should be a numeric or a character matrix")
+  expect_error(to_longer(NULL, "hugo_symbol"), "mbcp_matrix should be a numeric or a character matrix")
+  expect_error(to_longer(matrix(data = sample(c(TRUE, FALSE), 6, replace = T), nrow = 2), "hugo_symbol"))
 })
 
 test_that("to_longer throws error when second argument is not valid id_column", {

@@ -85,7 +85,7 @@ get_mbcp_tpms_class <- function(genes = NULL, samples = NULL) {
 
 #' Get matrix with mbcp data in long format
 #'
-#' @param mbcp_matrix Numeric matrix with TPMs or Signature data
+#' @param mbcp_matrix Numeric matrix with TPM values or signature data, or character matrix with their classification
 #' @param id_column Character value to identify rownames in matrix. Options are: "hugo_symbol" and "signature_id"
 #'
 #' @return A dataframe with values in long format. The number of rows equals \var{n}x\var{m}, the dimensions
@@ -102,8 +102,8 @@ get_mbcp_tpms_class <- function(genes = NULL, samples = NULL) {
 #' to_longer(get_mbcp_tpms_uq(), "hugo_symbol")
 to_longer <- function(mbcp_matrix, id_column) {
 
-  stopifnot("mbcp_matrix should be a numeric matrix" = is.matrix(mbcp_matrix),
-            "mbcp_matrix should be a numeric matrix" = is.numeric(mbcp_matrix))
+  stopifnot("mbcp_matrix should be a numeric or a character matrix" = is.matrix(mbcp_matrix),
+            "mbcp_matrix should be a numeric or a character matrix" = is.numeric(mbcp_matrix) | is.character(mbcp_matrix))
 
   if(!id_column %in% c("hugo_symbol", "signature_id")) {
     stop(paste0(id_column, " is not a valid id_column for mbcp"))

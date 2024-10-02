@@ -7,7 +7,7 @@
 to_longer(mbcp_matrix, id_column)
 }
 \arguments{
-\item{mbcp_matrix}{Numeric matrix with TPMs or Signature data}
+\item{mbcp_matrix}{Numeric matrix with TPM values or signature data, or character matrix with their classification}
 
 \item{id_column}{Character value to identify rownames in matrix. Options are: "hugo_symbol" and "signature_id"}
 }

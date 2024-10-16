@@ -24,5 +24,5 @@ of \code{mbcp_matrix}, with three columns:
 Get matrix with mbcp data in long format
 }
 \examples{
-to_longer(get_mbcp_tpms_uq(), "hugo_symbol")
+to_longer(get_mbcp_log2p1_tpms_uq(), "hugo_symbol")
 }

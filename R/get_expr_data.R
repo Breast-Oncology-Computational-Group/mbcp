@@ -7,8 +7,8 @@ utils::globalVariables(c("mbcp_log2_tpms", "mbcp_log2_tpms_class"))
 #' @export
 #'
 #' @examples
-#' get_mbcp_tpms()
-get_mbcp_tpms <- function(genes = NULL, samples = NULL) {
+#' get_mbcp_log2p1_tpms()
+get_mbcp_log2p1_tpms <- function(genes = NULL, samples = NULL) {
   tpms <- mbcp_log2_tpms
 
   if(!is.null(samples)) {
@@ -28,14 +28,14 @@ get_mbcp_tpms <- function(genes = NULL, samples = NULL) {
 
 #' Get upper quartile normalization TPMs
 #'
-#' @inheritParams get_mbcp_tpms
+#' @inheritParams get_mbcp_log2p1_tpms
 #' @return A matrix of UQ TPMs with genes as rows and samples as columns with sample_alias as column names
 #' @export
 #'
 #' @examples
-#' get_mbcp_tpms_uq()
-get_mbcp_tpms_uq <- function(genes = NULL, samples = NULL) {
-  tpms <- get_mbcp_tpms(genes = NULL, samples = NULL)
+#' get_mbcp_log2p1_tpms_uq()
+get_mbcp_log2p1_tpms_uq <- function(genes = NULL, samples = NULL) {
+  tpms <- get_mbcp_log2p1_tpms(genes = NULL, samples = NULL)
 
   if(!is.null(samples)) {
     stopifnot("samples should be a character vector" = is.character(samples),
@@ -57,15 +57,15 @@ get_mbcp_tpms_uq <- function(genes = NULL, samples = NULL) {
 
 #' Get gene expression classification
 #'
-#' @inheritParams get_mbcp_tpms
+#' @inheritParams get_mbcp_log2p1_tpms
 #' @return A character matrix with classification of log2 tpms.
 #' Categories are: Lower Decile, Lower Quartile, Upper Quartile, and Upper Decile. `NA` values for entries that do not fall into these categories.
 #'
 #' @export
 #'
 #' @examples
-#' get_mbcp_tpms_class()
-get_mbcp_tpms_class <- function(genes = NULL, samples = NULL) {
+#' get_mbcp_log2p1_tpms_class()
+get_mbcp_log2p1_tpms_class <- function(genes = NULL, samples = NULL) {
 
   tpms_class <- mbcp_log2_tpms_class
 
@@ -99,7 +99,7 @@ get_mbcp_tpms_class <- function(genes = NULL, samples = NULL) {
 #' @export
 #'
 #' @examples
-#' to_longer(get_mbcp_tpms_uq(), "hugo_symbol")
+#' to_longer(get_mbcp_log2p1_tpms_uq(), "hugo_symbol")
 to_longer <- function(mbcp_matrix, id_column) {
 
   stopifnot("mbcp_matrix should be a numeric or a character matrix" = is.matrix(mbcp_matrix),

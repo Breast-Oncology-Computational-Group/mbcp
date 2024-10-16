@@ -5,7 +5,7 @@ test_that("get_mbcp_log2p1_tpms returns a numeric matrix", {
 
 test_that("get_mbcp_log2p1_tpms returns the entire dataset", {
   tpms <- get_mbcp_log2p1_tpms()
-  expect_equal(mbcp_log2_tpms, tpms)
+  expect_equal(mbcp_log2p1_tpms, tpms)
 })
 
 test_that("get_mbcp_log2p1_tpms throws error when samples argument is not a character vector", {
@@ -34,8 +34,8 @@ test_that("get_mbcp_log2p1_tpms throws error when samples argument includes
 
 test_that("get_mbcp_log2p1_tpms returns correct dimensions with valid
           samples and genes", {
-  ss <- sample(colnames(mbcp_log2_tpms), 5)
-  gs <- sample(rownames(mbcp_log2_tpms), 5)
+  ss <- sample(colnames(mbcp_log2p1_tpms), 5)
+  gs <- sample(rownames(mbcp_log2p1_tpms), 5)
   tpms <- get_mbcp_log2p1_tpms(genes = gs, samples = ss)
   expect_equal(dim(tpms), c(5, 5))
   expect_equal(colnames(tpms), ss)
@@ -44,8 +44,8 @@ test_that("get_mbcp_log2p1_tpms returns correct dimensions with valid
 
 test_that("get_mbcp_log2p1_tpms returns correct dimensions with valid sample and
           valid gene for 1x1", {
-  ss <- sample(colnames(mbcp_log2_tpms), 1)
-  gs <- sample(rownames(mbcp_log2_tpms), 1)
+  ss <- sample(colnames(mbcp_log2p1_tpms), 1)
+  gs <- sample(rownames(mbcp_log2p1_tpms), 1)
   tpms <- get_mbcp_log2p1_tpms(genes = gs, samples = ss)
   expect_equal(dim(tpms), c(1, 1))
   expect_equal(colnames(tpms), ss)
@@ -83,8 +83,8 @@ test_that("get_mbcp_log2p1_tpms_uq throws error when genes argument includes
 
 test_that("get_mbcp_log2p1_tpms_uq returns correct dimensions with valid
           samples and genes", {
-  ss <- sample(colnames(mbcp_log2_tpms), 5)
-  gs <- sample(rownames(mbcp_log2_tpms), 5)
+  ss <- sample(colnames(mbcp_log2p1_tpms), 5)
+  gs <- sample(rownames(mbcp_log2p1_tpms), 5)
   tpms <- get_mbcp_log2p1_tpms_uq(genes = gs, samples = ss)
   expect_equal(dim(tpms), c(5, 5))
   expect_equal(colnames(tpms), ss)
@@ -184,7 +184,7 @@ test_that("get_mbcp_log2p1_tpms_class returns a character matrix", {
 
 test_that("get_mbcp_log2p1_tpms_class returns the entire dataset", {
   tpms_class <- get_mbcp_log2p1_tpms_class()
-  expect_equal(mbcp_log2_tpms_class, tpms_class)
+  expect_equal(mbcp_log2p1_tpms_class, tpms_class)
 })
 
 test_that("get_mbcp_log2p1_tpms_class throws error when samples argument is not a character vector", {
@@ -212,8 +212,8 @@ test_that("get_mbcp_log2p1_tpms_class throws error when samples argument include
 })
 
 test_that("get_mbcp_log2p1_tpms_class returns correct dimensions with valid samples and genes", {
-    ss <- sample(colnames(mbcp_log2_tpms_class), 5)
-    gs <- sample(rownames(mbcp_log2_tpms_class), 5)
+    ss <- sample(colnames(mbcp_log2p1_tpms_class), 5)
+    gs <- sample(rownames(mbcp_log2p1_tpms_class), 5)
     tpms <- get_mbcp_log2p1_tpms_class(gs, ss)
     expect_equal(dim(tpms), c(5, 5))
     expect_equal(colnames(tpms), ss)
@@ -221,8 +221,8 @@ test_that("get_mbcp_log2p1_tpms_class returns correct dimensions with valid samp
 })
 
 test_that("get_mbcp_log2p1_tpms_class returns correct output when filtered for 1x1", {
-  ss <- sample(colnames(mbcp_log2_tpms_class), 1)
-  gs <- sample(rownames(mbcp_log2_tpms_class), 1)
+  ss <- sample(colnames(mbcp_log2p1_tpms_class), 1)
+  gs <- sample(rownames(mbcp_log2p1_tpms_class), 1)
   tpms <- get_mbcp_log2p1_tpms_class(gs, ss)
   expect_equal(dim(tpms), c(1, 1))
   expect_equal(colnames(tpms), ss)

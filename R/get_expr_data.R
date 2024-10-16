@@ -1,4 +1,4 @@
-utils::globalVariables(c("mbcp_log2_tpms", "mbcp_log2_tpms_class"))
+utils::globalVariables(c("mbcp_log2p1_tpms", "mbcp_log2p1_tpms_class"))
 #' Get TPMs
 #'
 #' @param genes Character vector of hugo symbols to filter rows
@@ -9,7 +9,7 @@ utils::globalVariables(c("mbcp_log2_tpms", "mbcp_log2_tpms_class"))
 #' @examples
 #' get_mbcp_log2p1_tpms()
 get_mbcp_log2p1_tpms <- function(genes = NULL, samples = NULL) {
-  tpms <- mbcp_log2_tpms
+  tpms <- mbcp_log2p1_tpms
 
   if(!is.null(samples)) {
     stopifnot("samples should be a character vector" = is.character(samples),
@@ -67,7 +67,7 @@ get_mbcp_log2p1_tpms_uq <- function(genes = NULL, samples = NULL) {
 #' get_mbcp_log2p1_tpms_class()
 get_mbcp_log2p1_tpms_class <- function(genes = NULL, samples = NULL) {
 
-  tpms_class <- mbcp_log2_tpms_class
+  tpms_class <- mbcp_log2p1_tpms_class
 
   if(!is.null(samples)) {
     stopifnot("samples should be a character vector" = is.character(samples),

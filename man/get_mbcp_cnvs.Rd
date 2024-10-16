@@ -2,22 +2,19 @@
 % Please edit documentation in R/get_dna_data.R
 \name{get_mbcp_cnvs}
 \alias{get_mbcp_cnvs}
-\title{Get CNVs found in MBC project}
+\title{Get CNV in MBC project}
 \usage{
-get_mbcp_cnvs(samples = NULL, genes = NULL, min_ccf = 0)
+get_mbcp_cnvs(samples = NULL, genes = NULL, min_ccf = NULL)
 }
 \arguments{
 \item{samples}{Character vector of samples to filter variations by sample}
 
 \item{genes}{Character vector of hugo symbols to filter variations by gene}
 
-\item{min_ccf}{Minimum ccf}
-}
-\value{
-A data frame with CNVs
+\item{min_ccf}{Minimum cancer cell fraction}
 }
 \description{
-Get CNVs found in MBC project
+Get CNV in MBC project
 }
 \examples{
 get_mbcp_cnvs()

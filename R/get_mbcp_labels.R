@@ -31,7 +31,7 @@ get_mbcp_labels <- function(set) {
   names(histology) <- c("ILC", "IDC", "DCIS", "MIXED_IDLC", "ADENOCARCINOMA",
                        "OTHER_RARE_SUBTYPE", "ABSTRACTION_PENDING", "NOT_FOUND_IN_RECORD")
 
-  dna_alts <- c("DeepDEL", "Any Amp", "AMP", "HighAMP", "FocalHighAMP", "Gain_of_function",
+  dna_alts <- c("DeepDEL", "Any Amp", "GAIN", "AMP", "HighAMP", "FocalHighAMP", "Gain_of_function",
                 "Loss_of_function", "Putative_loss_of_function", "Biallelic_inactivation",
                 "Multi_hit", "Hotspot", "Missense_Mutation",  "Other_Mutation", "WT")
 

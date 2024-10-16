@@ -41,3 +41,11 @@ mocked_tpms_min_uq <- matrix(c(0.4, 0.25,  0.4, 1.25, 1.2,
 colnames(mocked_tpms_min_uq) <- paste0("s", 1:5)
 rownames(mocked_tpms_min_uq) <- paste0("g", 1:5)
 
+
+mocked_dna_alts <- data.frame(
+  hugo_symbol = sample(paste0("g", 1:10), 80, replace = T),
+  sample_id = sample(paste0("s", 20:40), 80, replace = T),
+  ccf_hat = runif(80),
+  variant_type = sample(c("MUT", "CNV"), 80, replace = T),
+  variant_classification = sample(c("AMP", "HighAMP", "FocalHighAMP", "DeepDEL"), 80, replace = T )
+)

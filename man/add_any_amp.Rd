@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_dna_data.R
 \name{add_any_amp}
 \alias{add_any_amp}
-\title{Adds Any Amp rows, which are rows with AMP, HighAMP, and FocalHighAMP
+\title{Adds Any Amp rows, which are rows with GAIN, AMP, HighAMP, and FocalHighAMP
 in the alt column}
 \usage{
 add_any_amp(.data)
@@ -14,9 +14,9 @@ add_any_amp(.data)
 A data frame with 'Any Amp' rows
 }
 \description{
-Adds Any Amp rows, which are rows with AMP, HighAMP, and FocalHighAMP
+Adds Any Amp rows, which are rows with GAIN, AMP, HighAMP, and FocalHighAMP
 in the alt column
 }
 \examples{
-add_any_amp(get_mbcp_dna_alts())
+add_any_amp(get_mbcp_dna_alts_summary())
 }

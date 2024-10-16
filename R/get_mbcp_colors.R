@@ -27,7 +27,7 @@ get_mbcp_colors <- function(set) {
              "NC"= RColorBrewer::brewer.pal(8,"Dark2")[8],
              "No RNA-seq" = "#9D989E")
 
-  #### Should add LOF_and_LOH
+  #### Should add LOF_and_LOH and GAIN
   dna_alts <- c("DeepDEL" = "#377eb8", "AMP" = "#ff6363", "HighAMP" = "#bc0000",
                 "FocalHighAMP" = "#7f0000", "Gain_of_function" = "#d95f02",
                 "Loss_of_function" = "#0173B2", "Putative_loss_of_function" = "#17c1e9ff",

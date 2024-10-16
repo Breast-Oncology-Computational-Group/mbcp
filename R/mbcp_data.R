@@ -1,9 +1,3 @@
-#' MBCproject gene list
-#'
-#' Character vector with set of genes of interest for the MBCproject
-#'
-"mbcp_genes"
-
 #' MBCproject clinical data
 #'
 #' Data frame with clinical data for each RNA or Wes sample in the MBCproject
@@ -16,12 +10,17 @@
 #'
 "mbcp_log2_tpms"
 
-#' MBCproject DNA alts
+#' MBCproject mutations
 #'
-#' Data frame with DNA alterations found in MBCproject
-#' It includes SNVs and CNVs from MAF and SEG files
-#'
-"mbcp_dna_alts"
+#' Data frame in MAF format with mutations found in MBCproject.
+#' It includes mandatory fields in a MAF file, plus columns added by ABSOLUTE
+#' and ONCOKB annotator
+"mbcp_mutations"
+
+#' MBCproject copy number variations
+#' Data frame in gene level seg file format, plus columns added by ABSOLUTE and
+#' ONCOKB annotator
+"mbcp_cnvs"
 
 #' MBCproject enrichment scores
 #'
@@ -46,3 +45,8 @@
 #' Categories: Lower Decile, Lower Quartile, Upper Quartile, Upper Decile.
 #' `NA` values for entries that do not fall into these categories
 "mbcp_log2_tpms_class"
+
+#' MBCproject germline hits
+#'
+#' Must remove this for public release
+"mbcp_germline_hits"

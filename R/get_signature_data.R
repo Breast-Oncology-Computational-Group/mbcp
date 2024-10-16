@@ -10,8 +10,8 @@ utils::globalVariables(c("mbcp_enrichment_scores", "mbcp_enrichment_class"))
 #' @export
 #'
 #' @examples
-#' get_mbcp_enrichment_scores()
-get_mbcp_enrichment_scores <- function(signatures = NULL, samples = NULL, signatures_set = NULL) {
+#' get_mbcp_expression_signature_scores()
+get_mbcp_expression_signature_scores <- function(signatures = NULL, samples = NULL, signatures_set = NULL) {
   scores <- mbcp_enrichment_scores
 
   rlang::check_exclusive(signatures, signatures_set, .require = FALSE)
@@ -43,14 +43,14 @@ get_mbcp_enrichment_scores <- function(signatures = NULL, samples = NULL, signat
 
 #' Get MBCproject enrichment classification
 #'
-#' @inheritParams get_mbcp_enrichment_scores
+#' @inheritParams get_mbcp_expression_signature_scores
 #' @return A character matrix with classification of normalized enrichment scores for hallmark signatures and other selected sets.
 #' Categories are: Lower Decile, Lower Quartile, Upper Quartile, and Upper Decile. `NA` values for entries that do not fall into these categories.
 #' @export
 #'
 #' @examples
-#' get_mbcp_enrichment_class()
-get_mbcp_enrichment_class <- function(signatures = NULL, samples = NULL) {
+#' get_mbcp_expression_signature_class()
+get_mbcp_expression_signature_class <- function(signatures = NULL, samples = NULL) {
   class <- mbcp_enrichment_class
 
   if(!is.null(samples)) {
@@ -75,8 +75,8 @@ get_mbcp_enrichment_class <- function(signatures = NULL, samples = NULL) {
 #' @export
 #'
 #' @examples
-#' get_mbcp_enrichment_signatures()
-get_mbcp_enrichment_signatures <- function() {
+#' get_mbcp_expression_signatures()
+get_mbcp_expression_signatures <- function() {
   return(mbcp_genes_signatures |>
            dplyr::select(.data$signature_id, .data$hugo_symbol, .data$category))
 }

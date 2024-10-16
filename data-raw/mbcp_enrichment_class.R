@@ -14,6 +14,9 @@ enrichment_class <- vroom("data-raw/df_signatures_class_UQ.tsv", col_names = cna
                            skip = 1) %>%
   select(-x1)
 
+enrichment_class <- enrichment_class %>%
+  filter(!endsWith(signature_id, ".1"))
+
 samples_dict <- vroom("data-raw/MBCp_sample_dictionary.tsv") %>%
   clean_names()
 

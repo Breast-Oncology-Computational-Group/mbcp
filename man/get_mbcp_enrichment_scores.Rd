@@ -4,12 +4,20 @@
 \alias{get_mbcp_enrichment_scores}
 \title{Get MBCproject enrichment scores}
 \usage{
-get_mbcp_enrichment_scores(signatures = NULL, samples = NULL)
+get_mbcp_enrichment_scores(
+  signatures = NULL,
+  samples = NULL,
+  signatures_set = NULL
+)
 }
 \arguments{
 \item{signatures}{Character vector of signature ids to filter rows}
 
 \item{samples}{Character vector of samples to filter columns}
+
+\item{signatures_set}{Name of signatures set to select a subset of signatures. Options are:
+hallmarks, breast, rtk
+Only one of \code{signatures} or \code{signatures_set} must be provided}
 }
 \value{
 A numeric matrix with normalized enrichment scores for hallmark and selected sets in the MBCproject

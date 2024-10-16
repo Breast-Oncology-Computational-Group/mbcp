@@ -5,7 +5,7 @@
 \alias{mbcp_enrichment_class}
 \title{MBCproject enrichment classification}
 \format{
-An object of class \code{matrix} (inherits from \code{array}) with 231 rows and 200 columns.
+An object of class \code{matrix} (inherits from \code{array}) with 229 rows and 200 columns.
 }
 \usage{
 mbcp_enrichment_class

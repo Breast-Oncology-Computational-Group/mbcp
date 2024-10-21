@@ -32,6 +32,7 @@ samples_dict <- samples_dict %>%
                select(sample_timepoint, sample_alias), by = "sample_timepoint")
 
 enrichment_class <- enrichment_class %>%
+  mutate(signature_id = gsub( "NES_", "", enrichment_class$signature_id)) %>%
   column_to_rownames("signature_id") %>%
   as.matrix()
 

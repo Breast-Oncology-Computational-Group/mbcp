@@ -125,27 +125,77 @@ test_that("get_mbcp_cnvs does not throw warning with invalid genes", {
   expect_no_warning(get_mbcp_cnvs(genes = gs))
 })
 
-test_that("get_mbcp_cnvs throws error if min_ccf is not a single numeric value", {
-  expect_error(get_mbcp_cnvs(min_ccf = NA), "min_ccf should be a numeric value")
-  expect_error(get_mbcp_cnvs(min_ccf = FALSE), "min_ccf should be a numeric value")
-  expect_error(get_mbcp_cnvs(min_ccf = "character"), "min_ccf should be a numeric value")
-  expect_error(get_mbcp_cnvs(min_ccf = c(0.5, 4.8)), "min_ccf should be a numeric value")
+#### get_mbcp_dna_alts_summary tests
+test_that("get_mbcp_mutations throws error if samples is not a character vector", {
+  expect_error(get_mbcp_dna_alts_summary(samples = 1), "samples should be a character vector")
+  expect_error(get_mbcp_dna_alts_summary(samples = c(TRUE, FALSE)), "samples should be a character vector")
+  expect_error(get_mbcp_dna_alts_summary(samples = NA), "samples should be a character vector")
 })
 
-test_that("get_mbcp_cnvs filters alts by ccf_hat", {
-  min_ccf <- runif(1)
-  df <- get_mbcp_cnvs(min_ccf = min_ccf)
-  expect_true(all(df$cancer_cell_frac_a2 > min_ccf | df$cancer_cell_frac_a1 > min_ccf))
+test_that("get_mbcp_dna_alts_summary throws error if genes is not a character vector", {
+  expect_error(get_mbcp_dna_alts_summary(genes = 1), "genes should be a character vector")
+  expect_error(get_mbcp_dna_alts_summary(genes = c(TRUE, FALSE)), "genes should be a character vector")
+  expect_error(get_mbcp_dna_alts_summary(genes = NA), "genes should be a character vector")
 })
 
+test_that("get_mbcp_dna_alts_summary throws error if variant_type is not valid", {
+  expect_error(get_mbcp_dna_alts_summary(variant_type = NA), "variant_type should be one of MUT, CNV, both")
+  expect_error(get_mbcp_dna_alts_summary(variant_type = FALSE), "variant_type should be one of MUT, CNV, both")
+  expect_error(get_mbcp_dna_alts_summary(variant_type = "character"), "variant_type should be one of MUT, CNV, both")
+  expect_error(get_mbcp_dna_alts_summary(variant_type = c(0.5, 4.8)), "variant_type should be one of MUT, CNV, both")
+})
 
-###summary
-## variant_type = "MUT", cnaps = NA
-## no NA in other columns
-## unique hugo_symbol, sample_id and final_variant_classification
-## multihits -> "," in variant_classification
-## n_alts > 1 -> "," in variant_classification
-## proteinchange = NA for variant_type = "CNV"
+test_that("get_mbcp_dna_alts_summary calls get_mbcp_mutations and get_mbcp_cnvs with correct arguments", {
+  mmut <- mock(mocked_mutations)
+  mcnv <- mock(mocked_cnvs)
+  ss <- unique(sample(mocked_mutations$Sample_ID, 25))
+  gg <- unique(sample(mocked_mutations$Hugo_Symbol, 25))
+  ccf <-runif(1)
+  with_mocked_bindings(code = {
+    get_mbcp_dna_alts_summary(samples = ss, genes = gg, min_ccf = ccf)
+    margs <- mock_args(mmut)
+    expect_called(mmut, 1)
+    expect_equal(margs[[1]], list(samples = ss, genes = gg, min_ccf = ccf))
+    margs <- mock_args(mcnv)
+    expect_called(mcnv, 1)
+    expect_equal(margs[[1]], list(samples = ss, genes = gg))
+  }, get_mbcp_cnvs = mcnv, get_mbcp_mutations = mmut)
+})
+
+test_that("get_mbcp_dna_alts_summary returns correct Multi-hit entries", {
+  mmut <- mock(mocked_mutations)
+  mcnv <- mock(mocked_cnvs)
+  with_mocked_bindings(code = {
+    df <- get_mbcp_dna_alts_summary()
+    df <- df %>%
+      mutate(ok = variant_classification == "Multi_hit" & n_alts > 1 |
+               variant_classification != "Multi_hit" & n_alts == 1 |
+               variant_type == "CNV")
+    expect_true(all(df$ok))
+  }, get_mbcp_cnvs = mcnv, get_mbcp_mutations = mmut)
+})
+
+test_that("get_mbcp_dna_alts_summary returns NA cnaps for MUT", {
+  all_alts <- get_mbcp_dna_alts_summary()
+  all_alts <- all_alts %>%
+    filter(variant_type == "MUT")
+  expect_true(all(is.na(all_alts$all_cnaps)))
+  expect_true(all(is.na(all_alts$max_cnap)))
+})
+
+test_that("get_mbcp_dna_alts_summary returns NA ccf for CNVS", {
+  all_alts <- get_mbcp_dna_alts_summary()
+  all_alts <- all_alts %>%
+    filter(variant_type == "CNV")
+  expect_true(all(is.na(all_alts$ccf_hat)))
+  expect_true(all(is.na(all_alts$all_ccfs)))
+  expect_true(all(is.na(all_alts$all_hgvs_protein_change)))
+  expect_true(all(is.na(all_alts$all_hgvs_genomic_change)))
+  expect_true(all(is.na(all_alts$all_protein_change)))
+  expect_true(all(is.na(all_alts$all_genomic_change)))
+  expect_false(all(is.na(all_alts$max_cnap)))
+  expect_false(all(is.na(all_alts$all_cnaps)))
+})
 
 test_that("add_any_amp throws error if .data does not have a variant_classification column", {
 

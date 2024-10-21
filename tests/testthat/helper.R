@@ -41,7 +41,6 @@ mocked_tpms_min_uq <- matrix(c(0.4, 0.25,  0.4, 1.25, 1.2,
 colnames(mocked_tpms_min_uq) <- paste0("s", 1:5)
 rownames(mocked_tpms_min_uq) <- paste0("g", 1:5)
 
-
 mocked_dna_alts <- data.frame(
   hugo_symbol = sample(paste0("g", 1:10), 80, replace = T),
   sample_id = sample(paste0("s", 20:40), 80, replace = T),
@@ -49,3 +48,29 @@ mocked_dna_alts <- data.frame(
   variant_type = sample(c("MUT", "CNV"), 80, replace = T),
   variant_classification = sample(c("AMP", "HighAMP", "FocalHighAMP", "DeepDEL"), 80, replace = T )
 )
+
+mocked_mutations <- data.frame(
+  Hugo_Symbol = sample(paste0("g", 1:10), 100, replace = T),
+  Sample_ID = sample(paste0("s", 20:40), 100, replace = T),
+  ccf_hat = sample(c(runif(80), rep(NA, 20))),
+  Variant_Type = sample(c("DEL", "INS", "SNP"), 100, replace = T),
+  Variant_Classification = sample(c("Loss_of_function", "Missense_Mutation", "Gain_of_function"), 100, replace = T)
+) %>%
+  dplyr::mutate(
+    Genomic_Change = Sample_ID,
+    HGVS_genomic_change = Sample_ID,
+    HGVS_protein_change = Sample_ID,
+    Protein_Change = Sample_ID
+  )
+
+loh <- sample(c(rep("", 90), rep(",LOH_LOF", 10)))
+
+mocked_cnvs <- data.frame(
+  hugo_symbol = sample(paste0("g", 1:10), 100, replace = T),
+  sample_id = sample(paste0("s", 20:40), 100, replace = T),
+  variant_type = "CNV",
+  cnap = runif(100, min = -5, max= 5),
+  variant_classification = sample(c("AMP", "HighAMP", "FocalHighAMP"), 100, replace = TRUE)
+) %>%
+  dplyr::mutate(variant_classification = ifelse(cnap < 0, "DeepDEL", variant_classification),
+         variant_classification = paste0(variant_classification, loh))

@@ -4,7 +4,12 @@
 \alias{get_mbcp_dna_alts_summary}
 \title{Get dna alterations (CNVs and mutations) in the MBC project.}
 \usage{
-get_mbcp_dna_alts_summary(samples = NULL, genes = NULL, min_ccf = NULL)
+get_mbcp_dna_alts_summary(
+  samples = NULL,
+  genes = NULL,
+  min_ccf = NULL,
+  variant_type = "both"
+)
 }
 \arguments{
 \item{samples}{Character vector of samples to filter variations by sample}
@@ -12,10 +17,16 @@ get_mbcp_dna_alts_summary(samples = NULL, genes = NULL, min_ccf = NULL)
 \item{genes}{Character vector of hugo symbols to filter variations by gene}
 
 \item{min_ccf}{Minimum cancer cell fraction}
+
+\item{variant_type}{Used to specify the type of variant alterations to add in the summary. Must
+be one of: "both", "CNV", "MUT"
+
+One entry per sample and gene for mutations with Multiple_hit, if multiple entries
+One entry per sample and gene for amplifications,}
 }
 \description{
 Get dna alterations (CNVs and mutations) in the MBC project.
 }
 \examples{
-get_mbcp_dna_alts_summary(min_ccf = 0.75)
+get_mbcp_dna_alts_summary(genes = c("ESR1", "TP53"), min_ccf = 0.75)
 }

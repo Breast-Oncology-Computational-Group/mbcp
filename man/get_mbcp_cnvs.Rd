@@ -4,14 +4,12 @@
 \alias{get_mbcp_cnvs}
 \title{Get CNV in MBC project}
 \usage{
-get_mbcp_cnvs(samples = NULL, genes = NULL, min_ccf = NULL)
+get_mbcp_cnvs(samples = NULL, genes = NULL)
 }
 \arguments{
 \item{samples}{Character vector of samples to filter variations by sample}
 
 \item{genes}{Character vector of hugo symbols to filter variations by gene}
-
-\item{min_ccf}{Minimum cancer cell fraction}
 }
 \description{
 Get CNV in MBC project

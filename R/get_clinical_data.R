@@ -19,10 +19,10 @@ get_clinical_data_all_variables <- function() {
 #' get_clinical_data()
 get_clinical_data <- function() {
   return(get_clinical_data_all_variables() |>
-           dplyr::select(.data$sample_alias, .data$patient_id, .data$sample_timepoint, .data$wes_sample_id,
-                         .data$receptor_status_dx_all, .data$hr_status_dx_all,  .data$dx_histology, .data$pam50_subtype,
-                         .data$bx_location, .data$bx_time_days, .data$calc_time_to_mets_dx_days, .data$calc_met_setting,
-                         .data$calc_primary_treat, .data$purity, .data$timepoint, .data$n_bypatient))
+           dplyr::select("sample_alias", "patient_id", "sample_timepoint", "wes_sample_id",
+                         "receptor_status_dx_all", "hr_status_dx_all",  "dx_histology", "pam50_subtype",
+                         "bx_location", "bx_time_days", "calc_time_to_mets_dx_days", "calc_met_setting",
+                         "calc_primary_treat", "purity", "timepoint", "n_bypatient"))
 
 }
 
@@ -173,24 +173,24 @@ get_clinical_data_multisamples <- function() {
 
   first_samples <- get_clinical_data_first_samples("wes") |>
     dplyr::filter(.data$n_bypatient > 1) |>
-    dplyr::select(.data$patient_id, time_to_mets_dx = .data$calc_time_to_mets_dx_days,
-          patient_hr_sub = .data$receptor_status_dx_all,
-          patient_histology = .data$dx_histology,
-          reference_biopsy = .data$bx_location, reference_pam50 = .data$pam50_subtype,
-          reference_hr_sub = .data$hr_status_dx_all,
-          reference_days = .data$bx_time_days, reference_met_set = .data$calc_met_setting,
-          reference_primary_treat = .data$calc_primary_treat,
-          reference_sample_id = .data$wes_sample_id,
-          reference_timepoint = .data$timepoint)
+    dplyr::select("patient_id", time_to_mets_dx = "calc_time_to_mets_dx_days",
+          patient_hr_sub = "receptor_status_dx_all",
+          patient_histology = "dx_histology",
+          reference_biopsy = "bx_location", reference_pam50 = "pam50_subtype",
+          reference_hr_sub = "hr_status_dx_all",
+          reference_days = "bx_time_days", reference_met_set = "calc_met_setting",
+          reference_primary_treat = "calc_primary_treat",
+          reference_sample_id = "wes_sample_id",
+          reference_timepoint = "timepoint")
 
   other_samples <- get_clinical_data_wes() |>
     dplyr::filter(.data$timepoint != 1 & .data$n_bypatient > 1) |>
     dplyr::mutate(comparison = paste0(.data$patient_id, "-t1_t", .data$timepoint)) |>
-    dplyr::select(.data$patient_id, .data$comparison, biopsy = .data$bx_location,
-           hr_sub = .data$hr_status_dx_all, pam50 = .data$pam50_subtype, days = .data$bx_time_days,
-           met_set = .data$calc_met_setting, treat_naive = .data$calc_primary_treat,
-           sample_id = .data$wes_sample_id,
-           timepoint = .data$timepoint)
+    dplyr::select("patient_id", "comparison", biopsy = "bx_location",
+           hr_sub = "hr_status_dx_all", pam50 = "pam50_subtype", days = "bx_time_days",
+           met_set = "calc_met_setting", treat_naive = "calc_primary_treat",
+           sample_id = "wes_sample_id",
+           timepoint = "timepoint")
 
   multisamples <- first_samples |>
     dplyr::inner_join(other_samples, by = "patient_id") |>

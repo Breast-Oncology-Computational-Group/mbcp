@@ -35,10 +35,9 @@ seg_cn <- seg_cn %>% mutate(variant_classification =
                              gsub(",Possible_biallelic_inactivation|Possible_biallelic_inactivation,|,Likely_biallelic_inactivation|Likely_biallelic_inactivation,", "",
                                             variant_classification))
 
-## "De_novo_Start_InFrame"  and   "De_novo_Start_OutOfFrame" to Other_Mutation
-## LOF_and_LOH,DeepDEL to DeepDEL
+## LOF_and_LOH,DeepDEL to DeepDEL.
 seg_cn <- seg_cn %>%
-  mutate(variant_classification = ifelse(variant_classification == "LOF_and_LOH,DeepDEL", "DeepDEL", variant_classification))
+  mutate(variant_classification = ifelse(variant_classification == "LOF_and_LOH,DeepDEL", "DeepDEL,LOF_and_LOH", variant_classification))
 
 seg_cn <- seg_cn %>%
   mutate(sample_id = tolower(sample_id))

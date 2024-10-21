@@ -7,7 +7,7 @@
 Data frame in gene level seg file format, plus columns added by ABSOLUTE and
 ONCOKB annotator}
 \format{
-An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 3204743 rows and 48 columns.
+An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 3204751 rows and 48 columns.
 }
 \usage{
 mbcp_cnvs

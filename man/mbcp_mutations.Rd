@@ -5,7 +5,7 @@
 \alias{mbcp_mutations}
 \title{MBCproject mutations}
 \format{
-An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 29950 rows and 196 columns.
+An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 29950 rows and 198 columns.
 }
 \usage{
 mbcp_mutations

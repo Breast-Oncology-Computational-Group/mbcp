@@ -90,6 +90,7 @@ match_list <- c("Gain_of_function", "Hotspot",
                 "Loss_of_function", "Missense_Mutation","Putative_loss_of_function",
                 "Switch_of_function", "Multi_hit")
 
+## "De_novo_Start_InFrame"  and   "De_novo_Start_OutOfFrame" to Other_Mutation
 maf <- maf %>%
   mutate(Variant_Classification = ifelse(Variant_Classification %in% match_list, Variant_Classification, "Other_Mutation"))
 
@@ -101,8 +102,10 @@ end_onco <- which(colnames(maf) == "PX_CITATIONS")
 
 mbcp_mutations <-  maf %>%
   mutate(Sample_ID = tolower(Sample_ID)) %>%
-  select(Hugo_Symbol, Entrez_Gene_Id, NCBI_Build, Chromosome, Start_Position, End_Position, Reference_Allele, Tumor_Seq_Allele1, Tumor_Seq_Allele2,
-         Variant_Classification, Variant_Type, Tumor_Sample_Barcode = tumor_sample_barcode, Sample_ID, Genome_Change, Protein_Change,
+  select(Hugo_Symbol, Entrez_Gene_Id, NCBI_Build, Chromosome, Start_Position, End_Position,
+         Reference_Allele, Tumor_Seq_Allele1, Tumor_Seq_Allele2,
+         Variant_Classification, Variant_Type, Tumor_Sample_Barcode = tumor_sample_barcode, Sample_ID,
+         "Genomic_Change" = Genome_Change, Protein_Change, HGVS_genomic_change, HGVS_protein_change,
          ref, alt, n_ref_count, n_alt_count, t_depth, all_of(start_abs:end_abs), all_of(start_onco:end_onco))
 
 

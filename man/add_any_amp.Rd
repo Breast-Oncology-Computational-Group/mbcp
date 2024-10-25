@@ -18,5 +18,5 @@ Adds Any Amp rows, which are rows with GAIN, AMP, HighAMP, and FocalHighAMP
 in the alt column
 }
 \examples{
-add_any_amp(get_mbcp_dna_alts_summary())
+add_any_amp(get_mbcp_dna_alts_summary(genes = c("ESR1", "TP53"), min_ccf = 0.75))
 }

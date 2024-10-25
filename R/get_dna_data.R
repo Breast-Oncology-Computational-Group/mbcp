@@ -217,6 +217,10 @@ add_any_amp <- function(.data) {
 
   stopifnot("'variant_classification' column missing in data" = "variant_classification" %in% colnames(.data))
 
+  if("Any Amp" %in% unique(.data$variant_classification)) {
+    stop("dataset already contains Any Amp")
+  }
+
   amps_categories <- get_mbcp_labels("dna_alts")[3:6]
   ### add warning if any amp is there
   return(.data |>

@@ -204,6 +204,12 @@ test_that("add_any_amp throws error if .data does not have a variant_classificat
     add_any_amp(), "'variant_classification' column missing in data")
 })
 
+test_that("add_any_amp throws error if variant_classification has Any Amp", {
+  mocked_dna_alts <- mocked_dna_alts %>%
+    add_any_amp()
+  expect_error(mocked_dna_alts %>% add_any_amp(), "dataset already contains Any Amp")
+})
+
 test_that("add_any_amp returns the correct number of rows", {
 
   any_rows <- mocked_dna_alts %>%

@@ -50,20 +50,20 @@ mbcp_clinical_data <- mbcp_clinical_data %>%
 
 ## MBCProject_0280
 mbcp_clinical_data <- mbcp_clinical_data %>%
-  mutate(timepoint = case_when(wes_sample_id == "MBC-MBCProject_0280-Tumor-SM-AXGL6" ~ 2,
-                           wes_sample_id == "MBC-MBCProject_0280-Tumor-SM-AXGIU" ~ 1,
+  mutate(timepoint = case_when(wes_sample_id == tolower("MBC-MBCProject_0280-Tumor-SM-AXGL6") ~ 2,
+                           wes_sample_id == tolower("MBC-MBCProject_0280-Tumor-SM-AXGIU") ~ 1,
                            TRUE ~ timepoint))
 
 ## MBCProject_0003
 mbcp_clinical_data <- mbcp_clinical_data %>%
-  mutate(timepoint = case_when(wes_sample_id == "MBC-MBCProject_0003-Tumor-SM-AZ5H9" ~ 2,
-                           wes_sample_id == "MBC-MBCProject_0003-Tumor-SM-AZ5HV" ~ 1,
+  mutate(timepoint = case_when(wes_sample_id ==  tolower("MBC-MBCProject_0003-Tumor-SM-AZ5H9") ~ 2,
+                           wes_sample_id ==  tolower("MBC-MBCProject_0003-Tumor-SM-AZ5HV") ~ 1,
                            TRUE ~ timepoint))
 
 ## MBCProject_0734
 mbcp_clinical_data <- mbcp_clinical_data %>%
-  mutate(timepoint = case_when(wes_sample_id == "MBC-MBCProject_0734-Tumor-SM-CGM1H" ~ 2,
-                           wes_sample_id == "MBC-MBCProject_0734-Tumor-SM-CGMCS" ~ 1,
+  mutate(timepoint = case_when(wes_sample_id == tolower("MBC-MBCProject_0734-Tumor-SM-CGM1H") ~ 2,
+                           wes_sample_id == tolower("MBC-MBCProject_0734-Tumor-SM-CGMCS") ~ 1,
                            TRUE ~ timepoint))
 
 usethis::use_data(mbcp_clinical_data, overwrite = TRUE, compress = "xz")

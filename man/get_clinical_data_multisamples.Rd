@@ -10,6 +10,8 @@ get_clinical_data_multisamples()
 A data frame with one entry per reference and comparison sample pair.
 Reference samples are first samples with WES in patients where n_bypatient > 1 and they
 are paired with the remaining WES samples from the same patient.
+This set has an extra filter requiring the removal of five samples from the total
+dataset.
 }
 \description{
 Get clinical data for patients with multiple samples in reference/sample format

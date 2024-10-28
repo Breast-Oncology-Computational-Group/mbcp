@@ -14,5 +14,7 @@ mbcp_genes_signatures <- mbcp_genes_signatures %>%
 
 mbcp_genes <- vroom("data-raw/CDK46_Seth_gene_list_16177.ordered_3.plus_genes_from_Daniel.txt", delim = "\t") %>% pull(Hugo_Symbol)
 
-usethis::use_data(mbcp_genes_signatures, mbcp_genes, overwrite = TRUE, internal = TRUE, compress = "xz")
+samples_to_remove <- vroom("data-raw/samples_to_remove_from_dict.tsv", delim = "\t")
+usethis::use_data(mbcp_genes_signatures, mbcp_genes, samples_to_remove,
+                  overwrite = TRUE, internal = TRUE, compress = "xz")
 

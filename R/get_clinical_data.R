@@ -165,6 +165,8 @@ get_clinical_data_latest_samples <- function(sample_type = "wes") {
 #' @return A data frame with one entry per reference and comparison sample pair.
 #' Reference samples are first samples with WES in patients where n_bypatient > 1 and they
 #' are paired with the remaining WES samples from the same patient.
+#' This set has an extra filter requiring the removal of five samples from the total
+#' dataset.
 #' @export
 #'
 #' @examples
@@ -172,25 +174,37 @@ get_clinical_data_latest_samples <- function(sample_type = "wes") {
 get_clinical_data_multisamples <- function() {
 
   first_samples <- get_clinical_data_first_samples("wes") |>
-    dplyr::filter(.data$n_bypatient > 1) |>
+    dplyr::filter(.data$n_bypatient > 1, !.data$wes_sample_id %in% samples_to_remove$sample_id)  |>
     dplyr::select("patient_id", time_to_mets_dx = "calc_time_to_mets_dx_days",
-          patient_hr_sub = "receptor_status_dx_all",
-          patient_histology = "dx_histology",
-          reference_biopsy = "bx_location", reference_pam50 = "pam50_subtype",
-          reference_hr_sub = "hr_status_dx_all",
-          reference_days = "bx_time_days", reference_met_set = "calc_met_setting",
-          reference_primary_treat = "calc_primary_treat",
-          reference_sample_id = "wes_sample_id",
-          reference_timepoint = "timepoint")
+                  patient_hr_sub = "receptor_status_dx_all",
+                  patient_histology = "dx_histology",
+                  reference_biopsy = "bx_location", reference_pam50 = "pam50_subtype",
+                  reference_hr_sub = "hr_status_dx_all",
+                  reference_days = "bx_time_days", reference_met_set = "calc_met_setting",
+                  reference_primary_treat = "calc_primary_treat",
+                  reference_sample_id = "wes_sample_id",
+                  reference_timepoint = "timepoint")
 
   other_samples <- get_clinical_data_wes() |>
-    dplyr::filter(.data$timepoint != 1 & .data$n_bypatient > 1) |>
-    dplyr::mutate(comparison = paste0(.data$patient_id, "-t1_t", .data$timepoint)) |>
-    dplyr::select("patient_id", "comparison", biopsy = "bx_location",
+    dplyr::filter(.data$n_bypatient > 1, !.data$wes_sample_id %in% samples_to_remove$sample_id) |>
+    dplyr::anti_join(first_samples, by = c("patient_id", "wes_sample_id" = "reference_sample_id",
+                                           "timepoint" = "reference_timepoint")) |>
+    dplyr::select("patient_id", biopsy = "bx_location",
            hr_sub = "hr_status_dx_all", pam50 = "pam50_subtype", days = "bx_time_days",
            met_set = "calc_met_setting", treat_naive = "calc_primary_treat",
            sample_id = "wes_sample_id",
            timepoint = "timepoint")
+
+  ## Not so sure if they should match the timepoints  in the clinical_data after samples removal
+  ## or if they should get a new order. Re-ordering for now
+  first_samples <- first_samples |>
+    dplyr::mutate(reference_timepoint = 1)
+
+  other_samples <- other_samples |>
+    dplyr::group_by(.data$patient_id) |>
+    dplyr::arrange(.data$timepoint, by_group = TRUE) |>
+    dplyr::mutate(timepoint = dplyr::row_number() + 1) |>
+    dplyr::ungroup()
 
   multisamples <- first_samples |>
     dplyr::inner_join(other_samples, by = "patient_id") |>
@@ -206,6 +220,7 @@ get_clinical_data_multisamples <- function() {
                                       ifelse(months < 12, "3-12",
                                              "> 12"))))
 
+  return(multisamples)
 }
 
 
